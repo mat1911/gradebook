@@ -1,4 +1,4 @@
-package com.app.entitiy;
+package com.app.entities;
 
 import lombok.*;
 
