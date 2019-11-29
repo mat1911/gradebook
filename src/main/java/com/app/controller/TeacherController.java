@@ -23,53 +23,44 @@ public class TeacherController {
 
     @FXML
     protected void handleTaskAddButton(){
-
         teacherView.loadAddFields(mainBorderPane);
     }
 
     @FXML
     protected void setSmallerAddBackgroundImage(){
-
         setSmallerBackgroundImage(addButton, "plus.png");
     }
 
     @FXML
     protected void setSmallerRemoveBackgroundImage(){
-
         setSmallerBackgroundImage(removeButton, "minus.png");
     }
 
     @FXML
     protected void setSmallerEditBackgroundImage(){
-
         setSmallerBackgroundImage(editButton, "pencil.png");
     }
 
     @FXML
     protected void setNormalAddBackgroundImage(){
-
         setNormalBackgroundImage(addButton, "plus.png");
     }
 
     @FXML
     protected void setNormalRemoveBackgroundImage(){
-
         setNormalBackgroundImage(removeButton, "minus.png");
     }
 
     @FXML
     protected void setNormalEditBackgroundImage(){
-
         setNormalBackgroundImage(editButton, "pencil.png");
     }
 
     private void setSmallerBackgroundImage(Button button, String imageName){
-
         teacherView.showSmallerBackgroundImage(button, imageName);
     }
 
     private void setNormalBackgroundImage(Button button, String imageName){
-
         teacherView.showNormalBackgroundImage(button, imageName);
     }
 

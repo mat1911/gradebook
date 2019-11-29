@@ -21,13 +21,11 @@ public class TeacherView {
     }
 
     public void showSmallerBackgroundImage(Button button, String pictureName){
-
         String path = "'file:src/main/resources/static/" + pictureName + "'";
         button.setStyle("-fx-background-image: url(" + path + "); -fx-background-repeat: stretch; -fx-background-position: center center; -fx-background-size: 15 15; -fx-background-color: transparent;");
     }
 
     public void showNormalBackgroundImage(Button button, String pictureName){
-
         String path = "'file:src/main/resources/static/" + pictureName + "'";
         button.setStyle("-fx-background-image: url(" + path + "); -fx-background-repeat: stretch; -fx-background-position: center center; -fx-background-size: 20 20; -fx-background-color: transparent;");
     }
