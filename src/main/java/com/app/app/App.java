@@ -1,9 +1,7 @@
-package com.app.menu;
+package com.app.app;
 
+import com.app.view.View;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -16,6 +14,8 @@ public class App extends Application {
         launch(args);
     }
 
+    /* Potem do zmiany pewnie, narazie daje inny start zeby sie odpalalo logowanie na wejscie
+
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -26,5 +26,11 @@ public class App extends Application {
         stage.setScene(mainScene);
         stage.show();
 
+    }*/
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        View view = new View();
+        view.showWindow(ConstValues.LOGIN_FILENAME, ConstValues.LOGIN_WIDTH, ConstValues.LOGIN_HEIGHT);
     }
 }
