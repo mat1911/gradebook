@@ -20,6 +20,7 @@ public class Teacher {
     private Long id;
     private String name;
     private String surname;
+    private String email;
 
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     @ToString.Exclude

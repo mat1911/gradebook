@@ -1,6 +1,6 @@
 package com.app.repository.impl;
 
-import com.app.entitiy.Lesson;
+import com.app.entities.Lesson;
 import com.app.repository.generic.AbstractGenericRepository;
 import com.app.repository.generic.CrudRepository;
 

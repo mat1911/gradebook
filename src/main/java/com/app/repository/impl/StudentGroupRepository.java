@@ -1,6 +1,6 @@
 package com.app.repository.impl;
 
-import com.app.entitiy.StudentGroup;
+import com.app.entities.StudentGroup;
 import com.app.repository.generic.AbstractGenericRepository;
 import com.app.repository.generic.CrudRepository;
 
