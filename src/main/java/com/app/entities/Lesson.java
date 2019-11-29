@@ -1,9 +1,8 @@
-package com.app.entitiy;
+package com.app.entities;
 
 import lombok.*;
 
 import javax.persistence.*;
-
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,16 +25,16 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Test> tests = new HashSet<>();
+    private Set<com.app.entities.Test> tests = new HashSet<>();
 
     @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Remark> remark = new HashSet<>();
+    private Set<com.app.entities.Remark> remark = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "group_id")
-    private StudentGroup group;
+    private com.app.entities.StudentGroup group;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "subject_id")

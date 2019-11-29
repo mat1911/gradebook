@@ -1,4 +1,4 @@
-package com.app.entitiy;
+package com.app.entities;
 
 import lombok.*;
 
@@ -11,21 +11,21 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "subjects")
-public class Subject {
+@Table(name = "student_groups")
+public class StudentGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String description;
 
-    @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Lesson> lessons = new HashSet<>();
 
-    @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Mark> marks = new HashSet<>();
+    private Set<Student> students = new HashSet<>();
 }
