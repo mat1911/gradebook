@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public abstract class AbstractGenericRepository<T, ID> implements CrudRepository<T, ID>{
 
-    private Class<T> entityType = (Class<T>) ((ParameterizedType) (super.getClass().getGenericSuperclass())).getActualTypeArguments()[0];
+    protected Class<T> entityType = (Class<T>) ((ParameterizedType) (super.getClass().getGenericSuperclass())).getActualTypeArguments()[0];
 
-    private EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("HBN");
-    private EntityManager entityManager;
-    private EntityTransaction entityTransaction;
+    protected EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("HBN");
+    protected EntityManager entityManager;
+    protected EntityTransaction entityTransaction;
 
     @Override
     public Optional<T> add(T entity){
