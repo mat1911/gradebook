@@ -1,4 +1,4 @@
-package com.app.entities;
+package com.app.entity;
 
 
 import lombok.*;
@@ -21,6 +21,7 @@ public class Teacher {
     private String name;
     private String surname;
 
+    @Column(unique = true)
     private String email;
     private String password;
 

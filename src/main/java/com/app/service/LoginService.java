@@ -1,11 +1,13 @@
 package com.app.service;
 
 import com.app.entities.AdminUser;
-import com.app.entities.Teacher;
-import com.app.repository.exception.ObjectNotFoundException;
+
+import com.app.entity.Teacher;
+import com.app.exception.ObjectNotFoundException;
 import com.app.repository.impl.AdminUserRepository;
 import com.app.repository.impl.TeacherRepository;
 import org.mindrot.jbcrypt.BCrypt;
+
 
 //Login -> gets info from adminUsers and teachers
 public class LoginService {
@@ -13,6 +15,7 @@ public class LoginService {
     private TeacherRepository teacherRepository = new TeacherRepository();
 
     public LoginType tryLogin(String login, String password) throws ObjectNotFoundException {
+
         if(adminUserRepository.findByEmail(login).isPresent()) {
             AdminUser adminUser = adminUserRepository.findByEmail(login).get();
             if (BCrypt.checkpw(password, adminUser.getPassword()))

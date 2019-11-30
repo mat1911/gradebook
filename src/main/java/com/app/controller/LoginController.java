@@ -1,6 +1,6 @@
 package com.app.controller;
 
-import com.app.repository.exception.ObjectNotFoundException;
+import com.app.exception.ObjectNotFoundException;
 import com.app.service.LoginService;
 import com.app.service.MyTask;
 import com.app.view.LoginView;

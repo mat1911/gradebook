@@ -1,6 +1,7 @@
 package com.app.repository.impl;
 
-import com.app.entities.Attendance;
+
+import com.app.entity.Attendance;
 import com.app.repository.generic.AbstractGenericRepository;
 import com.app.repository.generic.CrudRepository;
 
