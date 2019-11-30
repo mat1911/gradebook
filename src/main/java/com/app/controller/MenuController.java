@@ -2,6 +2,7 @@ package com.app.controller;
 
 
 import com.app.view.ViewManager;
+import com.app.view.WindowView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -19,8 +20,8 @@ public class MenuController {
 
     @FXML
     protected void openTeacherWindow(){
-        ViewManager viewManager = new ViewManager();
-        viewManager.showView(ViewManager.WindowView.TEACHER_VIEW);
+        ViewManager viewManager = ViewManager.getInstance();
+        viewManager.showView(WindowView.TEACHER_VIEW);
     }
 
 

@@ -1,7 +1,6 @@
 package com.app.service;
 
-import com.app.entities.AdminUser;
-
+import com.app.entity.AdminUser;
 import com.app.entity.Teacher;
 import com.app.exception.ObjectNotFoundException;
 import com.app.repository.impl.AdminUserRepository;
@@ -32,9 +31,5 @@ public class LoginService {
 
         }
         throw new ObjectNotFoundException("No user with such login!");
-    }
-
-    public enum LoginType {
-        ADMIN, TEACHER
     }
 }

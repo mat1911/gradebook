@@ -21,8 +21,10 @@ public class Teacher {
     private String name;
     private String surname;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)

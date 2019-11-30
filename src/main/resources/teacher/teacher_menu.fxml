@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="menuScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.TeacherMenuController">
+   <children>
+      <ToolBar fx:id="menuToolBar" prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="testButton" mnemonicParsing="false" onAction="#testButtonAction" text="Test 1" />
+            <Button fx:id="testButton2" mnemonicParsing="false" onAction="#testButton2Action" text="Test 2" />
+        </items>
+      </ToolBar>
+      <SubScene fx:id="menuSubScene" height="360.0" width="597.0">
+        <root>
+          <Region />
+        </root>
+      </SubScene>
+   </children>
+</VBox>

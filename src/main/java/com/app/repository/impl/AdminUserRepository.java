@@ -1,6 +1,6 @@
 package com.app.repository.impl;
 
-import com.app.entities.AdminUser;
+import com.app.entity.AdminUser;
 import com.app.repository.generic.AbstractGenericRepository;
 import com.app.repository.generic.CrudRepository;
 
