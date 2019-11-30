@@ -145,8 +145,8 @@
                         <TextField fx:id="surnameField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="emailField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Button fx:id="addOkButton" disable="true" mnemonicParsing="false" onAction="#addNewTeacher" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                  <Button fx:id="removeOkButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                  <Button fx:id="editOkButton" disable="true" mnemonicParsing="false" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <Button fx:id="removeOkButton" disable="true" mnemonicParsing="false" onAction="#removeTeacher" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <Button fx:id="editOkButton" disable="true" mnemonicParsing="false" onAction="#editTeacher" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                   <Label fx:id="errorMessage" prefHeight="69.0" prefWidth="133.0" textFill="RED" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <font>
                         <Font size="16.0" />

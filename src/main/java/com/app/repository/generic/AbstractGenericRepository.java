@@ -1,5 +1,7 @@
 package com.app.repository.generic;
 
+import com.app.repository.connection.DbConnection;
+
 import javax.persistence.*;
 import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
@@ -8,15 +10,18 @@ import java.util.Optional;
 
 public abstract class AbstractGenericRepository<T, ID> implements CrudRepository<T, ID>{
 
+    protected DbConnection dbConnection = DbConnection.getInstance();
+
     protected Class<T> entityType = (Class<T>) ((ParameterizedType) (super.getClass().getGenericSuperclass())).getActualTypeArguments()[0];
 
-    protected EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("HBN");
+    protected EntityManagerFactory entityManagerFactory = dbConnection.getEntityManagerFactory();
     protected EntityManager entityManager;
     protected EntityTransaction entityTransaction;
 
+
+
     @Override
     public Optional<T> add(T entity){
-
         try {
             entityManager = entityManagerFactory.createEntityManager();
             entityTransaction = entityManager.getTransaction();

@@ -43,6 +43,8 @@ public class TeacherValidator {
         return errors;
     }
 
+    public boolean isIdValid(String id) { return id.matches("[0-9]+");}
+
     private boolean isIdValid(Long id){
         return teacherRepository.findOne(id).isPresent();
     }

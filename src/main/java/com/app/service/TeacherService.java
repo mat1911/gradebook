@@ -30,9 +30,44 @@ public class TeacherService {
                     throw new IllegalArgumentException("Some arguments are not valid!");
                 });
 
-        Teacher result = teacherRepository.add(teacher).orElseThrow(() -> new IllegalStateException("Teacher is not added to database!"));
+        Teacher result = teacherRepository.add(teacher)
+                .orElseThrow(() -> new IllegalStateException("Teacher is not added to database!"));
 
         return result;
+    }
+
+    public Teacher removeTeacherFromDatabase(String id){
+
+        if(!teacherValidator.isIdValid(id)){
+            throw new IllegalArgumentException("Given id is not a number!");
+        }
+
+        return teacherRepository.delete(Long.parseLong(id))
+                .orElseThrow(() -> new IllegalArgumentException("There is no teacher with such id!"));
+    }
+
+    public Teacher editTeacher(Teacher teacher, String name, String surname, String email){
+
+        if(!name.isEmpty()){
+            teacher.setName(name);
+        }
+
+        if(!surname.isEmpty()){
+            teacher.setSurname(surname);
+        }
+
+        if(!email.isEmpty()){
+            teacher.setEmail(email);
+        }
+
+        teacherValidator.validate(teacher);
+
+        if(teacherValidator.hasErrors()){
+            throw new IllegalArgumentException("Some arguments are not valid!");
+        }
+
+        return teacherRepository.update(teacher)
+                .orElseThrow(() -> new IllegalStateException("Teacher is not modified!"));
     }
 
 }
