@@ -27,7 +27,7 @@ public class TeacherMenuController {
     @FXML
     protected void testButtonAction(ActionEvent actionEvent) {
         viewManager.setSubScene(menuSubScene);
-        viewManager.setSubScene(ConstValues.TEACHER_TEST1_FILENAME);
+        viewManager.setSubScene(ConstValues.LOGIN_FILENAME);
     }
 
     @FXML
