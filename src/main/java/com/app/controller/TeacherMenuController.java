@@ -7,14 +7,14 @@ import javafx.fxml.FXML;
 import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
 public class TeacherMenuController {
 
-    ViewManager viewManager = ViewManager.getInstance();
+    private ViewManager viewManager = ViewManager.getInstance();
 
     @FXML
-    protected VBox menuScene;
+    protected GridPane menuGridPane;
     @FXML
     protected ToolBar menuToolBar;
     @FXML

@@ -6,18 +6,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="menuScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.TeacherMenuController">
+<GridPane fx:id="menuGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.TeacherMenuController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="200.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="400.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <ToolBar fx:id="menuToolBar" prefHeight="40.0" prefWidth="200.0">
-        <items>
-          <Button fx:id="testButton" mnemonicParsing="false" onAction="#testButtonAction" text="Test 1" />
-            <Button fx:id="testButton2" mnemonicParsing="false" onAction="#testButton2Action" text="Test 2" />
-        </items>
-      </ToolBar>
-      <SubScene fx:id="menuSubScene" height="360.0" width="597.0">
-        <root>
-          <Region />
-        </root>
+      <SubScene fx:id="menuSubScene" height="400.0" width="600.0" GridPane.rowIndex="1">
+         <root>
+            <Region />
+         </root>
       </SubScene>
+      <ToolBar fx:id="menuToolBar" prefHeight="40.0" prefWidth="200.0">
+         <items>
+            <Button fx:id="testButton" mnemonicParsing="false" onAction="#testButtonAction" text="Test 1" />
+            <Button fx:id="testButton2" mnemonicParsing="false" onAction="#testButton2Action" text="Test 2" />
+         </items>
+      </ToolBar>
    </children>
-</VBox>
+</GridPane>
