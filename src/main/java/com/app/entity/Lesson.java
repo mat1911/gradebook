@@ -1,4 +1,4 @@
-package com.app.entities;
+package com.app.entity;
 
 import lombok.*;
 
@@ -25,16 +25,16 @@ public class Lesson {
     @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<com.app.entities.Test> tests = new HashSet<>();
+    private Set<com.app.entity.Test> tests = new HashSet<>();
 
     @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<com.app.entities.Remark> remark = new HashSet<>();
+    private Set<com.app.entity.Remark> remark = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "group_id")
-    private com.app.entities.StudentGroup group;
+    private com.app.entity.StudentGroup group;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "subject_id")

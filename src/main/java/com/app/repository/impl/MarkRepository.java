@@ -1,6 +1,6 @@
 package com.app.repository.impl;
 
-import com.app.entities.Mark;
+import com.app.entity.Mark;
 import com.app.repository.generic.AbstractGenericRepository;
 import com.app.repository.generic.CrudRepository;
 

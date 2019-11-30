@@ -1,4 +1,4 @@
-package com.app.entities;
+package com.app.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +12,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "remarks")
-public class Remark {
+@Table(name = "tests")
+public class Test {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,14 +21,6 @@ public class Remark {
     private String description;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "student_id")
-    private Student student;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
 }

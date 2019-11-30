@@ -1,23 +1,41 @@
 package com.app.view;
 
-import javafx.fxml.FXMLLoader;
+import com.app.entity.Teacher;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-import java.io.IOException;
+import java.util.Arrays;
 
 public class TeacherView {
 
-    public void loadAddFields(BorderPane mainBorderPane) {
+    public void addTeacherToTable(TableView table, Teacher teacher){
+        table.getItems().add(teacher);
+    }
 
-        try {
-            ((GridPane)mainBorderPane.getCenter()).getChildren().clear();
-            ((GridPane)mainBorderPane.getCenter()).getChildren().add(FXMLLoader.load(getClass().getResource("/addTeacher.fxml")));
-        } catch (IOException e) {
-            //TODO
-            e.printStackTrace();
-        }
+    public void showErrorMessage(Label errorLabel){
+
+        errorLabel.setText("Sprawdź poprawność uzupełnionych pół!");
+        errorLabel.setVisible(true);
+    }
+
+    public void hideErrorMessage(Label errorLabel){
+
+        errorLabel.setText("Sprawdź poprawność uzupełnionych pół!");
+        errorLabel.setVisible(false);
+    }
+
+    public void changeButtonsAccessibility(Button[] toDisableButtons, Button[] toEnableButtons){
+
+        Arrays.stream(toDisableButtons).forEach(button -> button.setDisable(true));
+        Arrays.stream(toEnableButtons).forEach(button -> button.setDisable(false));
+    }
+
+    public void changeFieldsAccessibility(TextField[] toDisableFields, TextField[] toEnableFields){
+
+        Arrays.stream(toDisableFields).forEach(field -> field.setDisable(true));
+        Arrays.stream(toEnableFields).forEach(field -> field.setDisable(false));
     }
 
     public void showSmallerBackgroundImage(Button button, String pictureName){
