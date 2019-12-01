@@ -2,11 +2,11 @@ package com.app.controller;
 
 import com.app.exception.ObjectNotFoundException;
 import com.app.service.LoginService;
-import com.app.service.MyTask;
-import com.app.service.LoginType;
+import com.app.utility.LoginType;
+import com.app.utility.MyTask;
 import com.app.view.LoginView;
 import com.app.view.ViewManager;
-import com.app.view.WindowView;
+import com.app.utility.WindowViewType;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,39 +31,39 @@ public class LoginController {
     private Label wrongPass;
 
     @FXML
-    protected void tryLogin() {
+    private void tryLogin() {
         MyTask myTask = new MyTask(() -> {
             try {
                 LoginType loginType = loginService.tryLogin(emailField.getText(), passField.getText());
                 Platform.runLater(() -> openMenu(loginType));
             } catch (ObjectNotFoundException e) {
-                Platform.runLater(() -> loginView.showLabel(wrongEmail));
+                Platform.runLater(() -> loginView.showLabel(wrongEmail, true));
             } catch (IllegalArgumentException e) {
-                Platform.runLater(() -> loginView.showLabel(wrongPass));
+                Platform.runLater(() -> loginView.showLabel(wrongPass, true));
             }
         });
         myTask.execute();
     }
 
     @FXML
-    protected void emailChanged() {
-        MyTask myTask = new MyTask(() -> Platform.runLater(() -> loginView.hideLabel(wrongEmail)));
+    private void emailChanged() {
+        MyTask myTask = new MyTask(() -> Platform.runLater(() -> loginView.showLabel(wrongEmail, false)));
         myTask.execute();
     }
 
     @FXML
-    protected void passChanged() {
-        MyTask myTask = new MyTask(() -> Platform.runLater(() -> loginView.hideLabel(wrongPass)));
+    private void passChanged() {
+        MyTask myTask = new MyTask(() -> Platform.runLater(() -> loginView.showLabel(wrongPass, false)));
         myTask.execute();
     }
 
     private void openMenu(LoginType tryLogin) {
         switch(tryLogin) {
             case ADMIN:
-                viewManager.showView(WindowView.ADMIN_MENU_VIEW);
+                viewManager.showView(WindowViewType.ADMIN_MENU_VIEW);
                 break;
             case TEACHER:
-                viewManager.showView(WindowView.TEACHER_MENU_VIEW);
+                viewManager.showView(WindowViewType.TEACHER_MENU_VIEW);
                 break;
         }
     }

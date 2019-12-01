@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="menuGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.AdminMenuController">
+   <children>
+      <SubScene fx:id="menuSubScene" height="400.0" width="600.0" GridPane.rowIndex="1">
+         <root>
+            <Region />
+         </root>
+      </SubScene>
+      <ToolBar fx:id="menuToolBar" prefHeight="40.0" prefWidth="600.0">
+         <items>
+            <Button fx:id="teacherButton" mnemonicParsing="false" onAction="#openTeacherScene" text="Nauczyciele" />
+            <Button fx:id="groupButton" mnemonicParsing="false" onAction="#openGroup" text="Klasy" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" text="Wyloguj" />
+         </items>
+      </ToolBar>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="200.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="40.0" minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="400.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+</GridPane>

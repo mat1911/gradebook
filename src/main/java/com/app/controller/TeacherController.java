@@ -1,8 +1,8 @@
 package com.app.controller;
 
 import com.app.entity.Teacher;
-import com.app.service.MyTask;
 import com.app.service.TeacherService;
+import com.app.utility.MyTask;
 import com.app.view.TeacherView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,44 +15,31 @@ public class TeacherController {
 
     @FXML
     private Label errorMessage;
-
     @FXML
     private Button addButton;
-
     @FXML
     private Button removeButton;
-
     @FXML
     private Button editButton;
-
     @FXML
     private Button addOkButton;
-
     @FXML
     private Button removeOkButton;
-
     @FXML
     private Button editOkButton;
-
     @FXML
     private TextField idField;
-
     @FXML
     private TextField nameField;
-
     @FXML
     private TextField surnameField;
-
     @FXML
     private TextField emailField;
-
     @FXML
     private TableView<Teacher> teachersTable;
 
     private TeacherView teacherView = new TeacherView();
-
     private TeacherService teacherService = new TeacherService();
-
 
     @FXML
     protected void addNewTeacher(){

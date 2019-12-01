@@ -7,8 +7,8 @@ public class ConstValues {
     public static final String TEACHER_TEST1_FILENAME = "teacher/teacher_test1.fxml";
     public static final String TEACHER_TEST2_FILENAME = "teacher/teacher_test2.fxml";
 
-    public static final String ADMIN_MENU_FILENAME = "admin_menu.fxml";
-    public static final String TEACHER_FILE_NAME = "teachers.fxml";
+    public static final String ADMIN_MENU_FILENAME = "admin/admin_menu.fxml";
+    public static final String TEACHER_FILE_NAME = "admin/teachers.fxml";
 
     public static final int LOGIN_WIDTH = 600;
     public static final int LOGIN_HEIGHT = 400;

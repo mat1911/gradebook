@@ -1,8 +1,8 @@
 package com.app.app;
 
-import com.app.service.MyTask;
+import com.app.utility.MyTask;
 import com.app.view.ViewManager;
-import com.app.view.WindowView;
+import com.app.utility.WindowViewType;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,7 +16,8 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         ViewManager viewManager = ViewManager.getInstance();
         viewManager.setStage(stage);
-        viewManager.showView(WindowView.LOGIN_VIEW);
+        viewManager.showView(WindowViewType.LOGIN_VIEW);
+        stage.show();
 
         MyTask myTask = new MyTask(() -> DBTest.populateDB());
         myTask.execute();

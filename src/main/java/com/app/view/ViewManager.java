@@ -1,6 +1,8 @@
 package com.app.view;
 
 import com.app.app.ConstValues;
+import com.app.utility.SubSceneViewType;
+import com.app.utility.WindowViewType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,8 +29,17 @@ public class ViewManager {
         return instance;
     }
 
-    public void showView(WindowView windowView) {
-        switch(windowView) {
+    public void showSubSceneView(SubSceneViewType subSceneViewType) {
+        switch(subSceneViewType) {
+            case TEACHER_VIEW:
+                showSubScene(ConstValues.TEACHER_FILE_NAME);
+                return;
+        }
+        throw new IllegalArgumentException("No such subSceneView!");
+    }
+
+    public void showView(WindowViewType windowViewType) {
+        switch(windowViewType) {
             case LOGIN_VIEW:
                 showWindow(ConstValues.LOGIN_FILENAME, ConstValues.LOGIN_WIDTH, ConstValues.LOGIN_HEIGHT);
                 return;
@@ -38,25 +49,25 @@ public class ViewManager {
             case TEACHER_MENU_VIEW:
                 showWindow(ConstValues.TEACHER_MENU_FILENAME, ConstValues.TEACHER_MENU_WIDTH, ConstValues.TEACHER_MENU_HEIGHT);
                 return;
-            case TEACHER_VIEW:
-                showWindow(ConstValues.TEACHER_FILE_NAME, ConstValues.TEACHER_WIDTH, ConstValues.TEACHER_HEIGHT);
-                return;
         }
-        throw new IllegalArgumentException("No such windowView");
+        throw new IllegalArgumentException("No such windowView!");
     }
 
     private void showWindow(String windowName, int sceneWidth, int sceneHeight){
         Parent root = getRoot(windowName);
         setScene(root, sceneWidth, sceneHeight);
         stage.setScene(scene);
-        stage.show();
     }
 
+    private void showSubScene(String windowName) {
+        Parent root = getRoot(windowName);
+        subScene.setRoot(root);
+    }
     private void setScene(Parent root, int sceneWidth, int sceneHeight) {
         scene = new Scene(root, sceneWidth, sceneHeight);
     }
 
-    public Parent getRoot(String windowName) {
+    private Parent getRoot(String windowName) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/" + windowName));
             return loader.load();
@@ -64,10 +75,6 @@ public class ViewManager {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void setSubScene(String windowName) {
-        subScene.setRoot(getRoot(windowName));
     }
 
     public void setSubScene(SubScene subScene) {

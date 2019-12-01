@@ -8,7 +8,6 @@ public class DbConnection {
     private static DbConnection ourInstance = new DbConnection();
     private static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("HBN");
 
-
     private DbConnection(){ }
 
     public static DbConnection getInstance() {
