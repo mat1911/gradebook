@@ -10,8 +10,30 @@ import java.util.Arrays;
 
 public class TeacherView {
 
-    public void addTeacherToTable(TableView table, Teacher teacher){
+    public void addTeacherToTable(TableView<Teacher> table, Teacher teacher){
         table.getItems().add(teacher);
+        table.refresh();
+    }
+
+    public void editTeacherToTable(TableView<Teacher> table, Teacher teacher) {
+
+        Teacher t = table.getItems()
+                .filtered(tr -> tr.getId() == teacher.getId())
+                .get(0);
+
+       // table.getItems().remove(t);
+
+        t.setName(teacher.getName());
+        t.setSurname(teacher.getSurname());
+        t.setEmail(teacher.getEmail());
+       // table.getItems().add(t);
+
+        table.refresh();
+    }
+
+    public void removeTeacherFromTable(TableView<Teacher> table, Teacher teacher){
+        table.getItems().remove(teacher);
+        table.refresh();
     }
 
     public void showErrorMessage(Label errorLabel){

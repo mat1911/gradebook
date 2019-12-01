@@ -47,7 +47,7 @@ public class TeacherController {
     private TextField emailField;
 
     @FXML
-    private TableView teachersTable;
+    private TableView<Teacher> teachersTable;
 
     private TeacherView teacherView = new TeacherView();
 
@@ -72,6 +72,50 @@ public class TeacherController {
         });
         myTask.execute();
     }
+
+    @FXML
+    protected void removeTeacher(){
+        MyTask myTask = new MyTask(() -> {
+            Platform.runLater(() -> teacherView.hideErrorMessage(errorMessage));
+            try {
+                Teacher removedTeacher = teacherService
+                        .removeTeacherFromDatabase(idField.getText());
+
+                Platform.runLater(() -> teacherView.removeTeacherFromTable(teachersTable, removedTeacher));
+
+            } catch (IllegalArgumentException e) {
+
+                Platform.runLater(() -> teacherView.showErrorMessage(errorMessage));
+                System.out.println(e.getMessage());
+            }
+        });
+        myTask.execute();
+    }
+
+    @FXML
+    protected void editTeacher(){
+        MyTask myTask = new MyTask(() -> {
+            Platform.runLater(() -> teacherView.hideErrorMessage(errorMessage));
+            try {
+
+                Teacher teacher = teachersTable.getItems()
+                        .filtered(tr -> tr.getId() == Long.parseLong(idField.getText()))
+                        .get(0);
+
+                Teacher editedTeacher = teacherService
+                        .editTeacher(teacher, nameField.getText(), surnameField.getText(), emailField.getText());
+
+                Platform.runLater(() -> teacherView.editTeacherToTable(teachersTable, editedTeacher));
+
+            } catch (IllegalArgumentException e) {
+
+                Platform.runLater(() -> teacherView.showErrorMessage(errorMessage));
+                System.out.println(e.getMessage());
+            }
+        });
+        myTask.execute();
+    }
+
 
     @FXML
     protected void changeAccessibilityForAddingNodes(){
