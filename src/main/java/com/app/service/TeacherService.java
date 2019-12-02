@@ -12,17 +12,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 
-public class TeacherService {
+public class TeacherService implements CrudService<Teacher>{
 
     private TeacherRepository teacherRepository = new TeacherRepository();
     private TeacherValidator teacherValidator = new TeacherValidator(teacherRepository);
 
-    public Teacher addTeacherToDatabase(String name, String surname, String email){
+    @Override
+    public Teacher addObjectToDatabase(ObservableList<String> fields){
 
         Teacher teacher = Teacher.builder()
-                .name(name)
-                .surname(surname)
-                .email(email)
+                .name(fields.get(0))
+                .surname(fields.get(1))
+                .email(fields.get(2))
                 .build();
 
         Map<String, String> errors =  teacherValidator.validate(teacher);
@@ -41,7 +42,8 @@ public class TeacherService {
         return result;
     }
 
-    public Teacher removeTeacherFromDatabase(String id){
+    @Override
+    public Teacher removeObjectFromDatabase(String id){
 
         if(!teacherValidator.isIdValid(id)){
             throw new IllegalArgumentException("Given id is not a number!");
@@ -51,18 +53,19 @@ public class TeacherService {
                 .orElseThrow(() -> new IllegalArgumentException("There is no teacher with such id!"));
     }
 
-    public Teacher editTeacher(Teacher teacher, String name, String surname, String email){
+    @Override
+    public Teacher editObject(Teacher teacher, ObservableList<String> fields){
 
-        if(!name.isEmpty()){
-            teacher.setName(name);
+        if(!fields.get(0).isEmpty()){
+            teacher.setName(fields.get(0));
         }
 
-        if(!surname.isEmpty()){
-            teacher.setSurname(surname);
+        if(!fields.get(1).isEmpty()){
+            teacher.setSurname(fields.get(1));
         }
 
-        if(!email.isEmpty()){
-            teacher.setEmail(email);
+        if(!fields.get(2).isEmpty()){
+            teacher.setEmail(fields.get(2));
         }
 
         teacherValidator.validate(teacher);
@@ -75,7 +78,8 @@ public class TeacherService {
                 .orElseThrow(() -> new IllegalStateException("Teacher is not modified!"));
     }
 
-    public FilteredList<Teacher> filterTeachers(ObservableList<Teacher> teachers, String filterInput){
+    @Override
+    public FilteredList<Teacher> filterObjects(ObservableList<Teacher> teachers, String filterInput){
 
         if(filterInput.isEmpty()){
             return new FilteredList<>(teachers);

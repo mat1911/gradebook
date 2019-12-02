@@ -36,7 +36,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="100.0">
                             <children>
                                 <Label alignment="CENTER" minHeight="41.0" minWidth="42.0" prefHeight="41.0" prefWidth="42.0" text="Szukaj" textAlignment="CENTER" />
-                                <TextField fx:id="searchField" onKeyPressed="#searchTeacher" prefHeight="25.0" prefWidth="1000.0">
+                                <TextField fx:id="searchField" onKeyPressed="#searchForObject" prefHeight="25.0" prefWidth="1000.0">
                                     <HBox.margin>
                                         <Insets left="5.0" />
                                     </HBox.margin>
@@ -94,7 +94,7 @@
                         </TableView>
                     </children>
                 </VBox>
-                <GridPane alignment="CENTER" minHeight="375.0" minWidth="385.0" prefHeight="600.0" prefWidth="600.0">
+                <GridPane fx:id="userInput" alignment="CENTER" minHeight="375.0" minWidth="385.0" prefHeight="600.0" prefWidth="600.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="142.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="10.0" prefWidth="243.0" />
@@ -144,9 +144,9 @@
                         <TextField fx:id="nameField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="surnameField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="emailField" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Button fx:id="addOkButton" disable="true" mnemonicParsing="false" onAction="#addNewTeacher" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                  <Button fx:id="removeOkButton" disable="true" mnemonicParsing="false" onAction="#removeTeacher" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-                  <Button fx:id="editOkButton" disable="true" mnemonicParsing="false" onAction="#editTeacher" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <Button fx:id="addOkButton" disable="true" mnemonicParsing="false" onAction="#addNewObject" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <Button fx:id="removeOkButton" disable="true" mnemonicParsing="false" onAction="#removeObject" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+                  <Button fx:id="editOkButton" disable="true" mnemonicParsing="false" onAction="#editObject" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                   <Label fx:id="errorMessage" prefHeight="69.0" prefWidth="133.0" textFill="RED" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <font>
                         <Font size="10.0" />
