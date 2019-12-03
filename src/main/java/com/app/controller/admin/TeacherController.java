@@ -1,8 +1,8 @@
-package com.app.controller;
+package com.app.controller.admin;
 
 import com.app.entity.Teacher;
 import com.app.service.ActionPerformer;
-import com.app.service.MyTask;
+import com.app.utility.MyTask;
 import com.app.service.TeacherService;
 import com.app.view.TeacherView;
 import javafx.application.Platform;
