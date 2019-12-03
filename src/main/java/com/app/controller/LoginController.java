@@ -1,30 +1,28 @@
 package com.app.controller;
 
+import com.app.app.AppContext;
+import com.app.entity.Teacher;
+import com.app.enums.LoginType;
+import com.app.enums.WindowViewType;
 import com.app.exception.ObjectNotFoundException;
+import com.app.repository.impl.TeacherRepository;
 import com.app.service.LoginService;
-import com.app.utility.LoginType;
 import com.app.utility.MyTask;
 import com.app.view.LoginView;
 import com.app.view.ViewManager;
-import com.app.utility.WindowViewType;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-    private LoginService loginService = new LoginService();
     private LoginView loginView = new LoginView();
-    private ViewManager viewManager = ViewManager.getInstance();
 
     @FXML
     private TextField emailField;
     @FXML
     private PasswordField passField;
-    @FXML
-    private Button loginButton;
     @FXML
     private Label wrongEmail;
     @FXML
@@ -34,8 +32,9 @@ public class LoginController {
     private void tryLogin() {
         MyTask myTask = new MyTask(() -> {
             try {
+                LoginService loginService = new LoginService();
                 LoginType loginType = loginService.tryLogin(emailField.getText(), passField.getText());
-                Platform.runLater(() -> openMenu(loginType));
+                openUserMenu(loginType);
             } catch (ObjectNotFoundException e) {
                 Platform.runLater(() -> loginView.showLabel(wrongEmail, true));
             } catch (IllegalArgumentException e) {
@@ -47,26 +46,27 @@ public class LoginController {
 
     @FXML
     private void emailChanged() {
-        MyTask myTask = new MyTask(() -> Platform.runLater(() -> loginView.showLabel(wrongEmail, false)));
-        myTask.execute();
+        loginView.showLabel(wrongEmail, false);
     }
 
     @FXML
     private void passChanged() {
-        MyTask myTask = new MyTask(() -> Platform.runLater(() -> loginView.showLabel(wrongPass, false)));
-        myTask.execute();
+        loginView.showLabel(wrongPass, false);
     }
 
-    private void openMenu(LoginType tryLogin) {
+    private void openUserMenu(LoginType tryLogin) {
+        ViewManager viewManager = new ViewManager();
         switch(tryLogin) {
             case ADMIN:
                 viewManager.showView(WindowViewType.ADMIN_MENU_VIEW);
                 break;
             case TEACHER:
+                TeacherRepository teacherRepository = new TeacherRepository();
+                Teacher loggedTeacher = teacherRepository.findByEmail(emailField.getText()).get();
+                AppContext.getInstance().setLoggedTeacher(loggedTeacher);
                 viewManager.showView(WindowViewType.TEACHER_MENU_VIEW);
                 break;
         }
     }
-
 
 }

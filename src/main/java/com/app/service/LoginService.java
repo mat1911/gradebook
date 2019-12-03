@@ -1,22 +1,22 @@
 package com.app.service;
 
-import com.app.entity.AdminUser;
+import com.app.entity.Admin;
 import com.app.entity.Teacher;
 import com.app.exception.ObjectNotFoundException;
-import com.app.repository.impl.AdminUserRepository;
+import com.app.repository.impl.AdminRepository;
 import com.app.repository.impl.TeacherRepository;
-import com.app.utility.LoginType;
+import com.app.enums.LoginType;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginService {
-    private AdminUserRepository adminUserRepository = new AdminUserRepository();
+    private AdminRepository adminRepository = new AdminRepository();
     private TeacherRepository teacherRepository = new TeacherRepository();
 
     public LoginType tryLogin(String login, String password) throws ObjectNotFoundException {
 
-        if(adminUserRepository.findByEmail(login).isPresent()) {
-            AdminUser adminUser = adminUserRepository.findByEmail(login).get();
-            if (BCrypt.checkpw(password, adminUser.getPassword()))
+        if(adminRepository.findByEmail(login).isPresent()) {
+            Admin admin = adminRepository.findByEmail(login).get();
+            if (BCrypt.checkpw(password, admin.getPassword()))
                 return LoginType.ADMIN;
             else
                 throw new IllegalArgumentException("Wrong password!");

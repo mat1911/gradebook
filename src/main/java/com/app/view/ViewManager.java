@@ -1,13 +1,13 @@
 package com.app.view;
 
+import com.app.app.AppContext;
 import com.app.app.ConstValues;
-import com.app.utility.SubSceneViewType;
-import com.app.utility.WindowViewType;
+import com.app.enums.SubViewType;
+import com.app.enums.WindowViewType;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
-import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,27 +16,7 @@ import java.io.IOException;
 @Getter
 @Setter
 public class ViewManager {
-    private static volatile ViewManager instance;
-    private volatile Stage stage = new Stage();
-    private volatile Scene scene;
-    private volatile SubScene subScene = new SubScene(null, 0, 0);
-
-    private ViewManager() {}
-
-    public static ViewManager getInstance() {
-        if(instance == null)
-            instance = new ViewManager();
-        return instance;
-    }
-
-    public void showSubSceneView(SubSceneViewType subSceneViewType) {
-        switch(subSceneViewType) {
-            case TEACHER_VIEW:
-                showSubScene(ConstValues.TEACHER_FILE_NAME);
-                return;
-        }
-        throw new IllegalArgumentException("No such subSceneView!");
-    }
+    private AppContext appContext = AppContext.getInstance();
 
     public void showView(WindowViewType windowViewType) {
         switch(windowViewType) {
@@ -56,15 +36,11 @@ public class ViewManager {
     private void showWindow(String windowName, int sceneWidth, int sceneHeight){
         Parent root = getRoot(windowName);
         setScene(root, sceneWidth, sceneHeight);
-        stage.setScene(scene);
+        Platform.runLater(() -> appContext.getStage().setScene(appContext.getScene()));
     }
 
-    private void showSubScene(String windowName) {
-        Parent root = getRoot(windowName);
-        subScene.setRoot(root);
-    }
     private void setScene(Parent root, int sceneWidth, int sceneHeight) {
-        scene = new Scene(root, sceneWidth, sceneHeight);
+        appContext.setScene(new Scene(root, sceneWidth, sceneHeight));
     }
 
     private Parent getRoot(String windowName) {
@@ -77,7 +53,15 @@ public class ViewManager {
         return null;
     }
 
-    public void setSubScene(SubScene subScene) {
-        this.subScene = subScene;
+    public Parent getRoot(SubViewType subViewType) {
+        switch(subViewType) {
+            case TEACHER_VIEW:
+                return getRoot(ConstValues.TEACHER_FILENAME);
+        }
+        throw new IllegalArgumentException("No such subView!");
+    }
+
+    public void showStage() {
+        appContext.getStage().show();
     }
 }

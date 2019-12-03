@@ -1,28 +1,22 @@
 package com.app.controller;
 
 
+import com.app.enums.SubViewType;
 import com.app.view.ViewManager;
-import com.app.utility.WindowViewType;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 
-
-public class MenuController {
-
-    @FXML
-    private Button teacherButton;
+public abstract class MenuController {
+    protected ViewManager viewManager = new ViewManager();
 
     @FXML
-    private Button groupButton;
+    protected GridPane contentPane;
 
-    @FXML
-    private Button logoutButton;
-
-    @FXML
-    private void openTeacherWindow(){
-        ViewManager viewManager = ViewManager.getInstance();
-        viewManager.showView(WindowViewType.TEACHER_VIEW);
+    protected void changeSubView(SubViewType subViewType) {
+        Platform.runLater(() -> {
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(viewManager.getRoot(subViewType));
+        });
     }
-
-
 }

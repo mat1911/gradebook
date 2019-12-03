@@ -1,8 +1,9 @@
 package com.app.app;
 
+import com.app.utility.DBTest;
 import com.app.utility.MyTask;
 import com.app.view.ViewManager;
-import com.app.utility.WindowViewType;
+import com.app.enums.WindowViewType;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -13,11 +14,11 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        ViewManager viewManager = ViewManager.getInstance();
-        viewManager.setStage(stage);
+    public void start(Stage stage) {
+        ViewManager viewManager = new ViewManager();
+        AppContext.getInstance().setStage(stage);
         viewManager.showView(WindowViewType.LOGIN_VIEW);
-        stage.show();
+        viewManager.showStage();
 
         MyTask myTask = new MyTask(() -> DBTest.populateDB());
         myTask.execute();

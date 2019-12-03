@@ -1,17 +1,16 @@
 package com.app.controller;
 
-import com.app.utility.SubSceneViewType;
+import com.app.enums.SubViewType;
+import com.app.enums.WindowViewType;
 import com.app.view.ViewManager;
-import com.app.utility.WindowViewType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 
-public class AdminMenuController {
-    private ViewManager viewManager = ViewManager.getInstance();
+public class AdminMenuController extends MenuController {
+    private ViewManager viewManager = new ViewManager();
 
     @FXML
     private GridPane menuGridPane;
@@ -24,17 +23,16 @@ public class AdminMenuController {
     @FXML
     private Button logoutButton;
     @FXML
-    private SubScene menuSubScene;
+    private GridPane contentPane;
 
     @FXML
     private void openTeacherScene(ActionEvent actionEvent) {
-        viewManager.setSubScene(menuSubScene);
-        viewManager.showSubSceneView(SubSceneViewType.TEACHER_VIEW);
+        changeSubView(SubViewType.TEACHER_VIEW);
     }
 
     @FXML
     private void openGroup(ActionEvent actionEvent) {
-        //TODO
+
     }
 
     @FXML

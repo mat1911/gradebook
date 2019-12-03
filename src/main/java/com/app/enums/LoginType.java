@@ -1,4 +1,4 @@
-package com.app.utility;
+package com.app.enums;
 
 public enum LoginType {
     ADMIN, TEACHER
