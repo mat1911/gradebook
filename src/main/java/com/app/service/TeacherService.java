@@ -5,6 +5,7 @@ import com.app.repository.impl.TeacherRepository;
 import com.app.validator.TeacherValidator;
 
 import java.util.Map;
+import java.util.Optional;
 
 
 public class TeacherService {
@@ -68,6 +69,13 @@ public class TeacherService {
 
         return teacherRepository.update(teacher)
                 .orElseThrow(() -> new IllegalStateException("Teacher is not modified!"));
+    }
+
+    public Teacher findByEmail(String email) {
+        Optional<Teacher> teacher = teacherRepository.findByEmail(email);
+        if(teacher.isPresent())
+            return teacher.get();
+        throw new IllegalArgumentException("No teacher associated with such e-mail!");
     }
 
 }

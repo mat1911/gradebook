@@ -5,8 +5,8 @@ import com.app.entity.Teacher;
 import com.app.enums.LoginType;
 import com.app.enums.WindowViewType;
 import com.app.exceptions.ObjectNotFoundException;
-import com.app.repository.impl.TeacherRepository;
 import com.app.service.LoginService;
+import com.app.service.TeacherService;
 import com.app.utility.MyTask;
 import com.app.view.LoginView;
 import javafx.application.Platform;
@@ -60,8 +60,8 @@ public class LoginController {
                 viewManager.showView(WindowViewType.ADMIN_MENU_VIEW);
                 break;
             case TEACHER:
-                TeacherRepository teacherRepository = new TeacherRepository();
-                Teacher loggedTeacher = teacherRepository.findByEmail(emailField.getText()).get();
+                TeacherService teacherService = new TeacherService();
+                Teacher loggedTeacher = teacherService.findByEmail(emailField.getText());
                 AppContext.getInstance().setLoggedTeacher(loggedTeacher);
                 viewManager.showView(WindowViewType.TEACHER_MENU_VIEW);
                 break;
