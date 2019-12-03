@@ -1,4 +1,4 @@
-package com.app.view;
+package com.app.controller;
 
 import com.app.app.AppContext;
 import com.app.app.ConstValues;

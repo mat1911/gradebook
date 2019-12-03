@@ -1,8 +1,8 @@
-package com.app.controller;
+package com.app.controller.menu;
 
 import com.app.enums.SubViewType;
 import com.app.enums.WindowViewType;
-import com.app.view.ViewManager;
+import com.app.controller.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,12 +26,12 @@ public class AdminMenuController extends MenuController {
     private GridPane contentPane;
 
     @FXML
-    private void openTeacherScene(ActionEvent actionEvent) {
+    private void openTeacherSubView(ActionEvent actionEvent) {
         changeSubView(SubViewType.TEACHER_VIEW);
     }
 
     @FXML
-    private void openGroup(ActionEvent actionEvent) {
+    private void openGroupSubView(ActionEvent actionEvent) {
 
     }
 

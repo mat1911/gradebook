@@ -1,4 +1,4 @@
-package com.app.controller;
+package com.app.controller.admin;
 
 import com.app.entity.Teacher;
 import com.app.service.TeacherService;

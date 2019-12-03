@@ -2,7 +2,7 @@ package com.app.service;
 
 import com.app.entity.Admin;
 import com.app.entity.Teacher;
-import com.app.exception.ObjectNotFoundException;
+import com.app.exceptions.ObjectNotFoundException;
 import com.app.repository.impl.AdminRepository;
 import com.app.repository.impl.TeacherRepository;
 import com.app.enums.LoginType;

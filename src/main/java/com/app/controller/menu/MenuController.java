@@ -1,8 +1,8 @@
-package com.app.controller;
+package com.app.controller.menu;
 
 
 import com.app.enums.SubViewType;
-import com.app.view.ViewManager;
+import com.app.controller.ViewManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;

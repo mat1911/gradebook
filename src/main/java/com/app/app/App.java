@@ -1,8 +1,8 @@
 package com.app.app;
 
+import com.app.controller.ViewManager;
 import com.app.utility.DBTest;
 import com.app.utility.MyTask;
-import com.app.view.ViewManager;
 import com.app.enums.WindowViewType;
 import javafx.application.Application;
 import javafx.stage.Stage;
