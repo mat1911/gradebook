@@ -36,7 +36,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="100.0">
                             <children>
                                 <Label alignment="CENTER" minHeight="41.0" minWidth="42.0" prefHeight="41.0" prefWidth="42.0" text="Szukaj" textAlignment="CENTER" />
-                                <TextField prefHeight="25.0" prefWidth="1000.0">
+                                <TextField fx:id="searchField" onKeyPressed="#searchTeacher" prefHeight="25.0" prefWidth="1000.0">
                                     <HBox.margin>
                                         <Insets left="5.0" />
                                     </HBox.margin>
@@ -149,7 +149,7 @@
                   <Button fx:id="editOkButton" disable="true" mnemonicParsing="false" onAction="#editTeacher" prefHeight="40.0" prefWidth="122.0" text="Ok" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
                   <Label fx:id="errorMessage" prefHeight="69.0" prefWidth="133.0" textFill="RED" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                      <font>
-                        <Font size="16.0" />
+                        <Font size="10.0" />
                      </font>
                   </Label>
                     </children>

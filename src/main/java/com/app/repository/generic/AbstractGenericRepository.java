@@ -19,7 +19,6 @@ public abstract class AbstractGenericRepository<T, ID> implements CrudRepository
     protected EntityTransaction entityTransaction;
 
 
-
     @Override
     public Optional<T> add(T entity){
         try {

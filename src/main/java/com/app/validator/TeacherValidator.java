@@ -17,14 +17,14 @@ public class TeacherValidator {
     }
 
     public boolean hasErrors(){
-        return errors.isEmpty();
+        return !errors.isEmpty();
     }
 
     public Map<String, String> validate(Teacher teacher){
 
         errors.clear();
 
-        if(teacher.getId() == null || isIdValid(teacher.getId())){
+        if(teacher.getId() == null || !isIdValid(teacher.getId())){
             errors.put("id", "Id is not valid");
         }
 

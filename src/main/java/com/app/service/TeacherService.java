@@ -3,9 +3,14 @@ package com.app.service;
 import com.app.entity.Teacher;
 import com.app.repository.impl.TeacherRepository;
 import com.app.validator.TeacherValidator;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class TeacherService {
@@ -76,6 +81,29 @@ public class TeacherService {
         if(teacher.isPresent())
             return teacher.get();
         throw new IllegalArgumentException("No teacher associated with such e-mail!");
+    }
+
+    public FilteredList<Teacher> filterTeachers(ObservableList<Teacher> teachers, String filterInput){
+
+        if(filterInput.isEmpty()){
+            return new FilteredList<>(teachers);
+        }
+
+        ObservableList<Teacher> result = FXCollections.observableArrayList(
+                teachers.stream()
+                .filter(tr ->
+                        tr.getName().toLowerCase().contains(filterInput.toLowerCase()) ||
+                                tr.getSurname().toLowerCase().contains(filterInput.toLowerCase()) ||
+                                tr.getEmail().toLowerCase().contains(filterInput.toLowerCase()) ||
+                                tr.getId().toString().contains(filterInput))
+                .collect(Collectors.toList()));
+
+        return new FilteredList<>(result);
+    }
+
+    public List<Teacher> getAllTeachers(){
+
+        return teacherRepository.findAll();
     }
 
 }

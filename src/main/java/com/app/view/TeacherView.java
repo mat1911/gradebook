@@ -1,6 +1,7 @@
 package com.app.view;
 
 import com.app.entity.Teacher;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
@@ -9,6 +10,13 @@ import javafx.scene.control.TextField;
 import java.util.Arrays;
 
 public class TeacherView {
+
+    public void setTeachersInTable(TableView<Teacher> table, ObservableList<Teacher> teachers){
+
+        table.getItems().clear();
+        table.getItems().addAll(teachers);
+        table.refresh();
+    }
 
     public void addTeacherToTable(TableView<Teacher> table, Teacher teacher){
         table.getItems().add(teacher);
@@ -21,12 +29,9 @@ public class TeacherView {
                 .filtered(tr -> tr.getId() == teacher.getId())
                 .get(0);
 
-       // table.getItems().remove(t);
-
         t.setName(teacher.getName());
         t.setSurname(teacher.getSurname());
         t.setEmail(teacher.getEmail());
-       // table.getItems().add(t);
 
         table.refresh();
     }
@@ -36,15 +41,14 @@ public class TeacherView {
         table.refresh();
     }
 
-    public void showErrorMessage(Label errorLabel){
+    public void showErrorMessage(Label errorLabel, String errorMessage){
 
-        errorLabel.setText("Sprawdź poprawność uzupełnionych pół!");
+        errorLabel.setText(errorMessage);
         errorLabel.setVisible(true);
     }
 
     public void hideErrorMessage(Label errorLabel){
 
-        errorLabel.setText("Sprawdź poprawność uzupełnionych pół!");
         errorLabel.setVisible(false);
     }
 
