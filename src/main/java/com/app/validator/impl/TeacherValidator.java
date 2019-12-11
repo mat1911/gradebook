@@ -1,30 +1,24 @@
-package com.app.validator;
+package com.app.validator.impl;
 
 import com.app.entity.Teacher;
-import com.app.repository.impl.TeacherRepository;
+import com.app.validator.generic.AbstractValidator;
+import com.app.validator.generic.Validator;
 import org.apache.commons.validator.EmailValidator;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherValidator {
+public class TeacherValidator extends AbstractValidator<Teacher> implements Validator<Teacher> {
 
-    private Map<String, String> errors = new HashMap<>();
-    private TeacherRepository teacherRepository;
-
-    public TeacherValidator(TeacherRepository teacherRepository) {
-        this.teacherRepository = teacherRepository;
-    }
-
-    public boolean hasErrors(){
-        return !errors.isEmpty();
-    }
-
+    @Override
     public Map<String, String> validate(Teacher teacher){
 
         errors.clear();
 
-        if(teacher.getId() == null || !isIdValid(teacher.getId())){
+        if(teacher == null){
+            System.out.println("TR = null");
+        }
+
+        if(teacher.getId() == null || !isIdValid(teacher.getId().toString())){
             errors.put("id", "Id is not valid");
         }
 
@@ -43,11 +37,8 @@ public class TeacherValidator {
         return errors;
     }
 
+    @Override
     public boolean isIdValid(String id) { return id.matches("[0-9]+");}
-
-    private boolean isIdValid(Long id){
-        return teacherRepository.findOne(id).isPresent();
-    }
 
     private boolean isNameValid(String surname){
         return surname.matches("[A-Za-z]{3,}");

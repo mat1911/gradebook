@@ -17,7 +17,7 @@ public class StudentGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String description;
+    private String name;
 
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     @ToString.Exclude

@@ -1,7 +1,9 @@
 package com.app.controller;
 
 import com.app.entity.Teacher;
-import com.app.service.TeacherService;
+import com.app.repository.impl.TeacherRepository;
+import com.app.service.impl.TeacherService;
+import com.app.validator.impl.TeacherValidator;
 import com.app.view.TeacherView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,7 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 
-public class TeacherController extends CrudController {
+public class TeacherController extends CrudController<Teacher> {
 
     @FXML
     private TextField idField;
@@ -32,12 +34,17 @@ public class TeacherController extends CrudController {
 
     private TeacherView teacherView = new TeacherView();
 
-    private TeacherService teacherService = new TeacherService();
+    private TeacherValidator teacherValidator = new TeacherValidator();
+
+    private TeacherRepository teacherRepository = new TeacherRepository();
+
+    private TeacherService teacherService = new TeacherService(teacherValidator, teacherRepository);
 
     private ObservableList<Teacher> allTeachers;
 
     public TeacherController() {
 
+/*
         this.allTeachers = FXCollections.observableArrayList(
                 Teacher.builder().id(1L).name("Basia").surname("Kowal").email("kowal@gmail.com").build(),
                 Teacher.builder().id(2L).name("Waldemar").surname("Pawlak").email("pawlak123@onet.pl").build(),
@@ -46,8 +53,9 @@ public class TeacherController extends CrudController {
         );
 
         this.allTeachers.forEach(tr -> teacherService.addObjectToDatabase(FXCollections.observableArrayList(tr.getName(), tr.getSurname(), tr.getEmail())));
+*/
 
-        this.allTeachers = FXCollections.observableList(teacherService.getAllTeachers());
+        this.allTeachers = FXCollections.observableList(teacherService.getAllObjects());
 
         FilteredList<Teacher> filtered = new FilteredList(allTeachers);
 
@@ -56,9 +64,7 @@ public class TeacherController extends CrudController {
             initFields(teachersTable, allTeachers, teacherService, teacherView);
         });
 
-
     }
-
 
     @FXML
     protected void changeAccessibilityForAddingNodes(){
@@ -80,15 +86,5 @@ public class TeacherController extends CrudController {
         changeAccessibilityForButtons(new Button[]{removeOkButton, addOkButton}, new Button[]{editOkButton});
         changeAccessibilityForFields(new TextField[]{}, new TextField[]{idField, nameField, surnameField, emailField});
     }
-
-    private void changeAccessibilityForButtons(Button[] toDisableButtons, Button[] toEnableButtons){
-        teacherView.changeButtonsAccessibility(toDisableButtons, toEnableButtons);
-    }
-
-    private void changeAccessibilityForFields(TextField[] toDisableFields, TextField[] toEnableFields){
-        teacherView.changeFieldsAccessibility(toDisableFields, toEnableFields);
-    }
-
-
 
 }

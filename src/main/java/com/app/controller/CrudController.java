@@ -1,7 +1,7 @@
 package com.app.controller;
 
-import com.app.service.ActionPerformer;
-import com.app.service.CrudService;
+import com.app.service.generic.ActionPerformer;
+import com.app.service.generic.CrudService;
 import com.app.service.MyTask;
 import com.app.view.CrudView;
 import javafx.application.Platform;
@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import java.lang.reflect.Field;
 import java.util.stream.Collectors;
 
-public class CrudController<T>{
+public class CrudController<T> implements Controller<T>{
 
     @FXML
     protected TextField searchField;
@@ -47,6 +47,8 @@ public class CrudController<T>{
     @FXML
     protected GridPane userInput;
 
+    protected Object[] model;
+
     private TableView<T> objectsTable;
 
     private ObservableList<T> allObjects;
@@ -55,13 +57,16 @@ public class CrudController<T>{
 
     private CrudView<T> crudView;
 
+
     public void initFields(TableView<T> objectsTable, ObservableList<T> allObjects, CrudService<T> crudService, CrudView<T> crudView) {
         this.objectsTable = objectsTable;
         this.allObjects = allObjects;
         this.crudService = crudService;
         this.crudView = crudView;
+    }
 
-        System.out.println("UPDATE = " + this.objectsTable);
+    public void addModel(T[] model){
+        this.model = model;
     }
 
     @FXML
@@ -162,6 +167,7 @@ public class CrudController<T>{
         setNormalBackgroundImage(editButton, "pencil.png");
     }
 
+
     protected void performAction(ActionPerformer actionPerformer, String errorMess){
 
         MyTask myTask = new MyTask(() -> {
@@ -171,6 +177,7 @@ public class CrudController<T>{
 
             } catch (Exception e) {
                 Platform.runLater(() -> crudView.showErrorMessage(errorMessage, errorMess));
+                e.printStackTrace();
                 System.out.println(e.getMessage());
             }
         });
@@ -187,7 +194,7 @@ public class CrudController<T>{
                             Field tClass = obj.getClass().getDeclaredField("id");
                             tClass.setAccessible(true);
 
-                            return tClass.get(obj).equals(getId());
+                            return tClass.get(obj).toString().equals(getId());
 
                         } catch (Exception e) {
                             Platform.runLater(() -> crudView.showErrorMessage(errorMessage, "Nie znaleziono podanego id!"));
@@ -199,14 +206,14 @@ public class CrudController<T>{
                     .orElseThrow(() -> new IllegalStateException("No object with such id found!"));
     }
 
-    protected ObservableList<String> getFieldsForAdding(){
+    protected ObservableList<TextField> getFieldsForAdding(){
 
         return FXCollections.observableArrayList(userInput
                 .getChildren()
                 .stream()
                 .filter(node -> node instanceof TextField && !node.getId().equals("idField"))
                 .map(node -> (TextField) node)
-                .map(txtField -> txtField.getText())
+          //      .map(txtField -> txtField.getText())
                 .collect(Collectors.toList()));
     }
 
@@ -221,15 +228,23 @@ public class CrudController<T>{
                  .orElseThrow(() -> new IllegalStateException("Id field is not found!"));
     }
 
-    protected ObservableList<String> getFieldsForEditing(){
+    protected ObservableList<TextField> getFieldsForEditing(){
 
         return FXCollections.observableArrayList(userInput
                 .getChildren()
                 .stream()
                 .filter(node -> node instanceof TextField)
                 .map(node -> (TextField) node)
-                .map(txtField -> txtField.getText())
+             //   .map(txtField -> txtField.getText())
                 .collect(Collectors.toList()));
+    }
+
+    protected void changeAccessibilityForButtons(Button[] toDisableButtons, Button[] toEnableButtons){
+        crudView.changeButtonsAccessibility(toDisableButtons, toEnableButtons);
+    }
+
+    protected void changeAccessibilityForFields(TextField[] toDisableFields, TextField[] toEnableFields){
+        crudView.changeFieldsAccessibility(toDisableFields, toEnableFields);
     }
 
     private void setSmallerBackgroundImage(Button button, String imageName){

@@ -1,4 +1,4 @@
-package com.app.service;
+package com.app.service.generic;
 
 @FunctionalInterface
 public interface ActionPerformer {

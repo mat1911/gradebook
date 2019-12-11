@@ -14,7 +14,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         ViewManager viewManager = new ViewManager();
-        viewManager.showView(ViewManager.WindowView.LOGIN_VIEW);
+        viewManager.showView(ViewManager.WindowView.LOGIN_VIEW, null);
 
         MyTask myTask = new MyTask(() -> DBTest.populateDB());
         myTask.execute();

@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController {
+public class LoginController implements Controller {
     private LoginService loginService = new LoginService();
     private LoginView loginView = new LoginView();
     private ViewManager viewManager = new ViewManager();
@@ -60,10 +60,10 @@ public class LoginController {
     private void openMenu(LoginService.LoginType tryLogin) {
         switch(tryLogin) {
             case ADMIN:
-                viewManager.showView(ViewManager.WindowView.ADMIN_MENU_VIEW);
+                viewManager.showView(ViewManager.WindowView.ADMIN_MENU_VIEW, null);
                 break;
             case TEACHER:
-                viewManager.showView(ViewManager.WindowView.TEACHER_MENU_VIEW);
+                viewManager.showView(ViewManager.WindowView.TEACHER_MENU_VIEW, null);
                 break;
         }
     }
