@@ -2,6 +2,10 @@ package com.app.app;
 
 public class ConstValues {
     public static final String LOGIN_FILENAME = "login.fxml";
+    public static final String ADMIN_MENU_FILENAME = "admin_menu.fxml";
+    public static final String GROUPS_FILE_NAME = "groups.fxml";
+    public static final String STUDENTS_FILE_NAME = "students.fxml";
+
     public static final int LOGIN_WIDTH = 600;
     public static final int LOGIN_HEIGHT = 400;
 
