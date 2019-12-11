@@ -5,9 +5,11 @@ import com.app.entity.Teacher;
 import com.app.enums.LoginType;
 import com.app.enums.WindowViewType;
 import com.app.exceptions.ObjectNotFoundException;
+import com.app.repository.impl.TeacherRepository;
 import com.app.service.LoginService;
-import com.app.service.TeacherService;
+import com.app.service.impl.TeacherService;
 import com.app.utility.MyTask;
+import com.app.validator.impl.TeacherValidator;
 import com.app.view.LoginView;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -60,7 +62,10 @@ public class LoginController {
                 viewManager.showView(WindowViewType.ADMIN_MENU_VIEW);
                 break;
             case TEACHER:
-                TeacherService teacherService = new TeacherService();
+                TeacherRepository teacherRepository = new TeacherRepository();
+                TeacherValidator teacherValidator = new TeacherValidator();
+                TeacherService teacherService = new TeacherService(teacherValidator, teacherRepository);
+
                 Teacher loggedTeacher = teacherService.findByEmail(emailField.getText());
                 AppContext.getInstance().setLoggedTeacher(loggedTeacher);
                 viewManager.showView(WindowViewType.TEACHER_MENU_VIEW);

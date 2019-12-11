@@ -1,5 +1,6 @@
 package com.app.app;
 
+import com.app.entity.StudentGroup;
 import com.app.entity.Teacher;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ public class AppContext {
     private Scene scene;
 
     private Teacher loggedTeacher;
+    private StudentGroup studentGroup;
 
     private AppContext() {}
 

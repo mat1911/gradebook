@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +29,9 @@ public class ViewManager {
                 return;
             case TEACHER_MENU_VIEW:
                 showWindow(ConstValues.TEACHER_MENU_FILENAME, ConstValues.TEACHER_MENU_WIDTH, ConstValues.TEACHER_MENU_HEIGHT);
+                return;
+            case STUDENTS_VIEW:
+                showWindow(ConstValues.STUDENTS_FILE_NAME, ConstValues.TEACHER_MENU_WIDTH, ConstValues.TEACHER_MENU_HEIGHT);
                 return;
         }
         throw new IllegalArgumentException("No such windowView!");
@@ -57,11 +61,23 @@ public class ViewManager {
         switch(subViewType) {
             case TEACHER_VIEW:
                 return getRoot(ConstValues.TEACHER_FILENAME);
+            case GROUP_VIEW:
+                return getRoot(ConstValues.GROUPS_FILE_NAME);
+            case STUDENT_VIEW:
+                return getRoot(ConstValues.STUDENTS_FILE_NAME);
         }
         throw new IllegalArgumentException("No such subView!");
     }
 
     public void showStage() {
         appContext.getStage().show();
+    }
+
+    public void changeSubView(SubViewType subViewType, Pane contentPane) {
+
+        Platform.runLater(() -> {
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(getRoot(subViewType));
+        });
     }
 }

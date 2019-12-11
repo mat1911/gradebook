@@ -1,5 +1,6 @@
-package com.app.controller;
+package com.app.controller.admin;
 
+import com.app.controller.CrudController;
 import com.app.entity.Teacher;
 import com.app.repository.impl.TeacherRepository;
 import com.app.service.impl.TeacherService;
@@ -43,17 +44,6 @@ public class TeacherController extends CrudController<Teacher> {
     private ObservableList<Teacher> allTeachers;
 
     public TeacherController() {
-
-/*
-        this.allTeachers = FXCollections.observableArrayList(
-                Teacher.builder().id(1L).name("Basia").surname("Kowal").email("kowal@gmail.com").build(),
-                Teacher.builder().id(2L).name("Waldemar").surname("Pawlak").email("pawlak123@onet.pl").build(),
-                Teacher.builder().id(3L).name("Zbigniew").surname("Kowal").email("zbigniew.kowal123@gmail.com").build(),
-                Teacher.builder().id(4L).name("Milosz").surname("Czeslaw").email("czesio39@wp.pl").build()
-        );
-
-        this.allTeachers.forEach(tr -> teacherService.addObjectToDatabase(FXCollections.observableArrayList(tr.getName(), tr.getSurname(), tr.getEmail())));
-*/
 
         this.allTeachers = FXCollections.observableList(teacherService.getAllObjects());
 

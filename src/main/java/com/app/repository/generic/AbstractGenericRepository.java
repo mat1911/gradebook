@@ -31,6 +31,8 @@ public abstract class AbstractGenericRepository<T, ID> implements CrudRepository
 
         }catch (Exception e){
 
+            e.printStackTrace();
+
             if(entityTransaction != null){
                 entityTransaction.rollback();
             }

@@ -3,7 +3,7 @@ package com.app.validator.impl;
 import com.app.entity.Teacher;
 import com.app.validator.generic.AbstractValidator;
 import com.app.validator.generic.Validator;
-import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 
 import java.util.Map;
 

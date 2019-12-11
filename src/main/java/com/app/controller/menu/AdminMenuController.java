@@ -1,15 +1,15 @@
 package com.app.controller.menu;
 
+import com.app.controller.ViewManager;
 import com.app.enums.SubViewType;
 import com.app.enums.WindowViewType;
-import com.app.controller.ViewManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 
-public class AdminMenuController extends MenuController {
+public class AdminMenuController{
     private ViewManager viewManager = new ViewManager();
 
     @FXML
@@ -27,12 +27,12 @@ public class AdminMenuController extends MenuController {
 
     @FXML
     private void openTeacherSubView(ActionEvent actionEvent) {
-        changeSubView(SubViewType.TEACHER_VIEW);
+        viewManager.changeSubView(SubViewType.TEACHER_VIEW, contentPane);
     }
 
     @FXML
     private void openGroupSubView(ActionEvent actionEvent) {
-
+        viewManager.changeSubView(SubViewType.GROUP_VIEW, contentPane);
     }
 
     @FXML

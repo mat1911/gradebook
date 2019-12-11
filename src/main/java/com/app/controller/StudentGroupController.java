@@ -1,22 +1,23 @@
 package com.app.controller;
 
-import com.app.entity.Student;
+import com.app.app.AppContext;
 import com.app.entity.StudentGroup;
+import com.app.enums.SubViewType;
 import com.app.repository.impl.StudentGroupRepository;
 import com.app.service.impl.GroupService;
 import com.app.validator.impl.StudentGroupValidator;
 import com.app.view.StudentGroupView;
-import com.app.view.ViewManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class StudentGroupController extends CrudController<StudentGroup> {
 
@@ -28,6 +29,9 @@ public class StudentGroupController extends CrudController<StudentGroup> {
 
     @FXML
     private TableView<StudentGroup> groupsTable;
+
+    @FXML
+    private HBox contentPane;
 
     private StudentGroupView studentGroupView = new StudentGroupView();
 
@@ -74,23 +78,18 @@ public class StudentGroupController extends CrudController<StudentGroup> {
     }
 
     @FXML
-    protected void addListenerToTable(){
-        groupsTable.setRowFactory(tv -> {
+    protected void addListenerToTable(MouseEvent mouseEvent){
 
-            TableRow<StudentGroup> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getButton()== MouseButton.PRIMARY
-                        && event.getClickCount() == 2) {
+        if(!groupsTable.getSelectionModel().isEmpty() && mouseEvent.getClickCount() == 2
+                && mouseEvent.getButton() == MouseButton.PRIMARY ){
 
-                    StudentGroup clickedRow = row.getItem();
-                    ViewManager viewManager = new ViewManager();
-                    viewManager.showView(ViewManager.WindowView.STUDENTS_VIEW, new StudentGroup[]{clickedRow});
-                }
-            });
-            return row ;
+            StudentGroup selectedGroup = groupsTable.getSelectionModel().getSelectedItem();
+            AppContext appContext = AppContext.getInstance();
+            appContext.setStudentGroup(selectedGroup);
 
+            ViewManager viewManager = new ViewManager();
+            viewManager.changeSubView(SubViewType.STUDENT_VIEW, contentPane);
 
-        });
-
+        }
     }
 }

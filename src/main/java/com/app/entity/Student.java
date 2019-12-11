@@ -20,7 +20,7 @@ public class Student {
     private String name;
     private String surname;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
     private StudentGroup group;
 

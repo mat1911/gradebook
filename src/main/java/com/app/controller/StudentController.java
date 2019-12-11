@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import com.app.app.AppContext;
 import com.app.entity.Student;
 import com.app.entity.StudentGroup;
 import com.app.repository.impl.StudentGroupRepository;
@@ -17,6 +18,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 
 public class StudentController extends CrudController<Student> {
 
@@ -32,11 +37,10 @@ public class StudentController extends CrudController<Student> {
     @FXML
     private Label groupNameLabel;
 
-    private StudentGroup studentGroup;
-
-
     @FXML
     private TableView<Student> studentTable;
+
+    private StudentGroup studentGroup;
 
     private StudentView studentView = new StudentView();
 
@@ -51,12 +55,14 @@ public class StudentController extends CrudController<Student> {
 
     public StudentController() {
 
-        this.allStudents = FXCollections.observableList(studentsService.getAllObjects());
+        AppContext appContext = AppContext.getInstance();
+        studentGroup = appContext.getStudentGroup();
 
-        FilteredList<Student> filtered = new FilteredList(allStudents);
+        this.allStudents = FXCollections.observableArrayList(studentGroup.getStudents());
+
+        FilteredList<Student> filtered = new FilteredList(FXCollections.observableArrayList(allStudents));
 
         Platform.runLater(() -> {
-            studentGroup = (StudentGroup)model[0];
             groupNameLabel.setText(studentGroup.getName());
             studentView.setObjectsInTable(studentTable, filtered);
             initFields(studentTable, allStudents, studentsService, studentView);
@@ -69,16 +75,14 @@ public class StudentController extends CrudController<Student> {
 
         performAction(() -> {
 
-            StudentGroupRepository studentGroupRepository = new StudentGroupRepository();
-
-            studentGroup = studentGroupRepository
-                    .findOne(studentGroup.getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Given group is not found in DB!"));
+            System.out.println(studentGroup.getStudents());
 
             Student addedObject = studentsService
                     .addStudentsToDatabase(getFieldsForAdding(), studentGroup);
 
             allStudents.add(addedObject);
+
+            Platform.runLater(() -> studentView.addObjectToTable(studentTable, addedObject));
 
         }, "Sprawdź poprawność pól!");
     }

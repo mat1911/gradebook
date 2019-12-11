@@ -2,7 +2,7 @@ package com.app.controller;
 
 import com.app.service.generic.ActionPerformer;
 import com.app.service.generic.CrudService;
-import com.app.service.MyTask;
+import com.app.utility.MyTask;
 import com.app.view.CrudView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 import java.lang.reflect.Field;
 import java.util.stream.Collectors;
 
-public class CrudController<T> implements Controller<T>{
+public class CrudController<T>{
 
     @FXML
     protected TextField searchField;
@@ -47,8 +47,6 @@ public class CrudController<T> implements Controller<T>{
     @FXML
     protected GridPane userInput;
 
-    protected Object[] model;
-
     private TableView<T> objectsTable;
 
     private ObservableList<T> allObjects;
@@ -63,10 +61,6 @@ public class CrudController<T> implements Controller<T>{
         this.allObjects = allObjects;
         this.crudService = crudService;
         this.crudView = crudView;
-    }
-
-    public void addModel(T[] model){
-        this.model = model;
     }
 
     @FXML
