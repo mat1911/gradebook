@@ -20,8 +20,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="wrongEmail" alignment="CENTER_RIGHT" opacity="0.0" prefHeight="17.0" prefWidth="140.0" text="Niepoprawny e-mail!  " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label fx:id="wrongPass" alignment="CENTER_RIGHT" opacity="0.0" prefHeight="17.0" prefWidth="140.0" text="Niepoprawne hasło!  " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="wrongEmail" text="Niepoprawny e-mail!  " textFill="RED" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="wrongPass" text="Niepoprawne hasło!  " textFill="RED" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

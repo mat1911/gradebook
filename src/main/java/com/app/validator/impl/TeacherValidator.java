@@ -14,10 +14,6 @@ public class TeacherValidator extends AbstractValidator<Teacher> implements Vali
 
         errors.clear();
 
-        if(teacher == null){
-            System.out.println("TR = null");
-        }
-
         if(teacher.getId() == null || !isIdValid(teacher.getId().toString())){
             errors.put("id", "Id is not valid");
         }
@@ -32,6 +28,10 @@ public class TeacherValidator extends AbstractValidator<Teacher> implements Vali
 
         if(teacher.getEmail().isEmpty() || !isEmailValid(teacher.getEmail())){
             errors.put("email", "Email is not valid");
+        }
+
+        if(teacher.getPassword().isEmpty()){
+            errors.put("password", "Password is not valid");
         }
 
         return errors;

@@ -5,7 +5,9 @@ import com.app.validator.generic.Validator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -37,12 +39,20 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
 
             t = serviceType.newInstance();
 
-            for (int i = 0; i < decFields.length; i++) {
-                for (int j = 0; j < fieldsWithObjectData.size(); j++) {
+            for (int i = 0; i < fieldsWithObjectData.size(); i++) {
 
-                    if(fieldsWithObjectData.get(j).getId().equals(decFields[i].getName() + "Field")){
-                        decFields[i].setAccessible(true);
-                        decFields[i].set(t, fieldsWithObjectData.get(j).getText());
+                for (int j = 0; j < decFields.length; j++) {
+
+                    if (fieldsWithObjectData.get(i).getId().equals(decFields[j].getName() + "Field")) {
+
+                        decFields[j].setAccessible(true);
+
+                        if (!fieldsWithObjectData.get(i).getText().isEmpty() && fieldsWithObjectData.get(i) instanceof PasswordField) {
+                            decFields[j].set(t, BCrypt.hashpw(fieldsWithObjectData.get(i).getText(), BCrypt.gensalt()));
+                        } else {
+                            decFields[j].set(t, fieldsWithObjectData.get(i).getText());
+                        }
+
                     }
                 }
             }
@@ -51,7 +61,7 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
             e.printStackTrace();
         }
 
-        Map<String, String> errors =  validator.validate(t);
+        Map<String, String> errors = validator.validate(t);
 
         errors.entrySet()
                 .stream()
@@ -68,7 +78,7 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
     @Override
     public T removeObjectFromDatabase(String id) {
 
-        if(!validator.isIdValid(id)){
+        if (!validator.isIdValid(id)) {
             throw new IllegalArgumentException("Given id is not a number!");
         }
 
@@ -79,7 +89,7 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
     @Override
     public FilteredList<T> filterObjects(ObservableList<T> allObjects, String filterInput) {
 
-        if(filterInput.isEmpty()){
+        if (filterInput.isEmpty()) {
             return new FilteredList<>(allObjects);
         }
 
@@ -104,12 +114,18 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
 
             for (int i = 0; i < decFields.length; i++) {
                 for (int j = 0; j < fieldsWithObjectData.size(); j++) {
-                    if(fieldsWithObjectData.get(j).getId().equals(decFields[i].getName() + "Field")
-                            && !fieldsWithObjectData.get(j).getText().isEmpty()
-                            && decFields[i].getType().getSimpleName().equals("String")){
 
-                        decFields[i].setAccessible(true);
-                        decFields[i].set(t, fieldsWithObjectData.get(j).getText());
+                    if (fieldsWithObjectData.get(j).getId().equals(decFields[i].getName() + "Field")
+                            && !fieldsWithObjectData.get(j).getText().isEmpty()
+                            && decFields[i].getType().getSimpleName().equals("String")) {
+
+                        decFields[j].setAccessible(true);
+
+                        if (!fieldsWithObjectData.get(i).getText().isEmpty() && fieldsWithObjectData.get(i) instanceof PasswordField) {
+                            decFields[j].set(t, BCrypt.hashpw(fieldsWithObjectData.get(i).getText(), BCrypt.gensalt()));
+                        } else {
+                            decFields[j].set(t, fieldsWithObjectData.get(i).getText());
+                        }
 
                     }
                 }
@@ -117,7 +133,7 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
 
             validator.validate(t);
 
-            if(validator.hasErrors() || crudRepository.findOne(Long.parseLong(getIdMethod.invoke(t).toString())).isEmpty()){
+            if (validator.hasErrors() || crudRepository.findOne(Long.parseLong(getIdMethod.invoke(t).toString())).isEmpty()) {
                 throw new IllegalArgumentException("Some arguments are not valid!");
             }
 
@@ -130,13 +146,13 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
     }
 
     @Override
-    public List<T> getAllObjects(){
+    public List<T> getAllObjects() {
         return crudRepository.findAll();
     }
 
-    private boolean checkIfObjectDataContainsFilterInput(T t, String filterInput){
+    private boolean checkIfObjectDataContainsFilterInput(T t, String filterInput) {
 
-        Field [] decFields = serviceType.getDeclaredFields();
+        Field[] decFields = serviceType.getDeclaredFields();
 
         return Arrays.stream(decFields)
                 .anyMatch(field -> {
@@ -152,3 +168,4 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
                 });
     }
 }
+

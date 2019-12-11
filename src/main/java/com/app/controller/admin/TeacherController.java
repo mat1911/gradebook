@@ -12,8 +12,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class TeacherController extends CrudController<Teacher> {
@@ -29,6 +31,9 @@ public class TeacherController extends CrudController<Teacher> {
 
     @FXML
     private TextField emailField;
+
+    @FXML
+    private PasswordField passwordField;
 
     @FXML
     private TableView<Teacher> teachersTable;
@@ -60,21 +65,21 @@ public class TeacherController extends CrudController<Teacher> {
     protected void changeAccessibilityForAddingNodes(){
 
         changeAccessibilityForButtons(new Button[]{editOkButton, removeOkButton}, new Button[]{addOkButton});
-        changeAccessibilityForFields(new TextField[]{idField}, new TextField[]{nameField, surnameField, emailField});
+        changeAccessibilityForFields(new TextField[]{idField}, new TextField[]{nameField, surnameField, emailField, passwordField});
     }
 
     @FXML
     protected void changeAccessibilityForRemovingNodes(){
 
         changeAccessibilityForButtons(new Button[]{editOkButton, addOkButton}, new Button[]{removeOkButton});
-        changeAccessibilityForFields(new TextField[]{nameField, surnameField, emailField}, new TextField[]{idField});
+        changeAccessibilityForFields(new TextField[]{nameField, surnameField, emailField, passwordField}, new TextField[]{idField});
     }
 
     @FXML
     protected void changeAccessibilityForEditingNodes(){
 
         changeAccessibilityForButtons(new Button[]{removeOkButton, addOkButton}, new Button[]{editOkButton});
-        changeAccessibilityForFields(new TextField[]{}, new TextField[]{idField, nameField, surnameField, emailField});
+        changeAccessibilityForFields(new TextField[]{}, new TextField[]{idField, nameField, surnameField, emailField, passwordField});
     }
 
 }

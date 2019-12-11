@@ -1,6 +1,7 @@
-package com.app.controller;
+package com.app.controller.admin;
 
 import com.app.app.AppContext;
+import com.app.controller.CrudController;
 import com.app.entity.Student;
 import com.app.entity.StudentGroup;
 import com.app.repository.impl.StudentGroupRepository;
