@@ -12,10 +12,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Table(name = "subjects")
+@ToString(includeFieldNames = false)
 public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ToString.Exclude
     private Long id;
     private String name;
 
@@ -28,4 +30,5 @@ public class Subject {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Mark> marks = new HashSet<>();
+
 }

@@ -5,6 +5,8 @@ public class ConstValues {
     public static final String ADMIN_MENU_FILENAME = "admin/adminMenu.fxml";
     public static final String GROUPS_FILE_NAME = "admin/groups.fxml";
     public static final String STUDENTS_FILE_NAME = "admin/students.fxml";
+    public static final String SUBJECTS_FILE_NAME = "admin/subjects.fxml";
+    public static final String PLAN_FILE_NAME = "admin/lesson.fxml";
 
     public static final int LOGIN_WIDTH = 600;
     public static final int LOGIN_HEIGHT = 400;

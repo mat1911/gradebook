@@ -19,7 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class StudentGroupController extends CrudController<StudentGroup> {
 
@@ -33,7 +33,7 @@ public class StudentGroupController extends CrudController<StudentGroup> {
     private TableView<StudentGroup> groupsTable;
 
     @FXML
-    private HBox contentPane;
+    private VBox contentPane;
 
     private StudentGroupView studentGroupView = new StudentGroupView();
 

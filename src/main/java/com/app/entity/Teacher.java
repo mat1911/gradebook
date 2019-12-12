@@ -13,10 +13,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Table(name = "teachers")
+@ToString(includeFieldNames = false)
 public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ToString.Exclude
     private Long id;
     private String name;
     private String surname;
@@ -24,6 +26,7 @@ public class Teacher {
     @Column(unique = true, nullable = false)
     private String email;
 
+    @ToString.Exclude
     @Column(nullable = false)
     private String password;
 

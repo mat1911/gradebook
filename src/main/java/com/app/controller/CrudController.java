@@ -204,7 +204,6 @@ public class CrudController<T>{
                 .stream()
                 .filter(node -> node instanceof TextField && !node.getId().equals("idField"))
                 .map(node -> (TextField) node)
-          //      .map(txtField -> txtField.getText())
                 .collect(Collectors.toList()));
     }
 
@@ -226,7 +225,6 @@ public class CrudController<T>{
                 .stream()
                 .filter(node -> node instanceof TextField)
                 .map(node -> (TextField) node)
-             //   .map(txtField -> txtField.getText())
                 .collect(Collectors.toList()));
     }
 

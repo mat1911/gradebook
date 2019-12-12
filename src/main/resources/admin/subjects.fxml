@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<VBox fx:id="contentPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.admin.StudentGroupController">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.admin.SubjectController">
     <children>
-        <HBox prefHeight="1000.0" prefWidth="600.0">
+        <HBox fx:id="contentPane" prefHeight="1000.0" prefWidth="600.0">
             <children>
                 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1000.0" prefWidth="1000.0">
                     <children>
@@ -46,7 +46,7 @@
                                 </Button>
                             </children>
                         </HBox>
-                        <TableView fx:id="groupsTable" onMouseClicked="#addListenerToTable" prefHeight="1000.0" prefWidth="600.0">
+                        <TableView fx:id="subjectsTable" prefHeight="1000.0" prefWidth="600.0">
                             <columns>
                                 <TableColumn prefWidth="26.0" text="ID">
                                     <cellValueFactory>

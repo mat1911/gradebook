@@ -36,6 +36,16 @@ public class AdminMenuController{
     }
 
     @FXML
+    private void openSubjectSubView(ActionEvent actionEvent) {
+        viewManager.changeSubView(SubViewType.SUBJECTS_VIEW, contentPane);
+    }
+
+    @FXML
+    private void openPlanSubView(ActionEvent actionEvent) {
+        viewManager.changeSubView(SubViewType.PLAN_VIEW, contentPane);
+    }
+
+    @FXML
     private void logout(ActionEvent actionEvent) {
         viewManager.showView(WindowViewType.LOGIN_VIEW);
     }

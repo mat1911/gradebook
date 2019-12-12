@@ -159,7 +159,7 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
                     field.setAccessible(true);
 
                     try {
-                        return field.get(t).toString().contains(filterInput);
+                        return field.get(t).toString().toLowerCase().contains(filterInput.toLowerCase());
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }

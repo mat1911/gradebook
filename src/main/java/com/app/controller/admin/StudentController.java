@@ -64,7 +64,7 @@ public class StudentController extends CrudController<Student> {
         FilteredList<Student> filtered = new FilteredList(FXCollections.observableArrayList(allStudents));
 
         Platform.runLater(() -> {
-            groupNameLabel.setText(studentGroup.getName());
+            groupNameLabel.setText("GRUPA: " + studentGroup.getName());
             studentView.setObjectsInTable(studentTable, filtered);
             initFields(studentTable, allStudents, studentsService, studentView);
         });

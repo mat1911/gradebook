@@ -30,9 +30,6 @@ public class ViewManager {
             case TEACHER_MENU_VIEW:
                 showWindow(ConstValues.TEACHER_MENU_FILENAME, ConstValues.TEACHER_MENU_WIDTH, ConstValues.TEACHER_MENU_HEIGHT);
                 return;
-            case STUDENTS_VIEW:
-                showWindow(ConstValues.STUDENTS_FILE_NAME, ConstValues.TEACHER_MENU_WIDTH, ConstValues.TEACHER_MENU_HEIGHT);
-                return;
         }
         throw new IllegalArgumentException("No such windowView!");
     }
@@ -65,6 +62,10 @@ public class ViewManager {
                 return getRoot(ConstValues.GROUPS_FILE_NAME);
             case STUDENT_VIEW:
                 return getRoot(ConstValues.STUDENTS_FILE_NAME);
+            case SUBJECTS_VIEW:
+                return getRoot(ConstValues.SUBJECTS_FILE_NAME);
+            case PLAN_VIEW:
+                return getRoot(ConstValues.PLAN_FILE_NAME);
         }
         throw new IllegalArgumentException("No such subView!");
     }

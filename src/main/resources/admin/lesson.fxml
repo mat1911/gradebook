@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.app.controller.admin.LessonController">
+    <children>
+        <HBox prefHeight="1000.0" prefWidth="600.0">
+            <children>
+                <TableView fx:id="lessonTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="208.0" minWidth="380.0" prefHeight="1000.0" prefWidth="1000.0">
+                    <columns>
+                        <TableColumn editable="false" minWidth="3.0" prefWidth="30.0" text="Nr">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="lessonNumber" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="162.0" text="Przedmiot">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="subject" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn editable="false" prefWidth="209.0" text="Nauczyciel">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="teacher" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                    <HBox.margin>
+                        <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
+                    </HBox.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+                </TableView>
+                <VBox alignment="CENTER" minHeight="400.0" minWidth="180.0" prefHeight="1000.0" prefWidth="1000.0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="1000.0" text="Data">
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <DatePicker fx:id="datePicker" onAction="#loadLessons" prefHeight="25.0" prefWidth="1000.0" />
+                        <Label prefHeight="17.0" prefWidth="1000.0" text="Grupa" textAlignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <ChoiceBox fx:id="groupBox" onMouseClicked="#loadLessons" prefWidth="1000.0" />
+                  <Label prefHeight="17.0" prefWidth="1000.0" text="Numer lekcji" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="lessonNumberBox" prefWidth="1000.0" />
+                  <Label prefHeight="17.0" prefWidth="1000.0" text="Nauczyciel" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="teacherBox" prefWidth="1000.0" />
+                  <Label prefHeight="17.0" prefWidth="1000.0" text="Przedmiot" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="subjectBox" prefWidth="1000.0" />
+                        <Button fx:id="okButton" mnemonicParsing="false" onAction="#changeLesson" prefHeight="40.0" prefWidth="106.0" text="Ok">
+                            <VBox.margin>
+                                <Insets top="15.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+                </VBox>
+            </children>
+         <VBox.margin>
+            <Insets right="15.0" />
+         </VBox.margin>
+        </HBox>
+    </children>
+</VBox>
