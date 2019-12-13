@@ -11,10 +11,12 @@ import com.app.validator.impl.StudentValidator;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
-public class StudentsService extends AbstractCrudService<Student> implements CrudService<Student> {
-    public StudentsService(Validator<Student> validator, CrudRepository<Student, Long> crudRepository) {
+public class StudentService extends AbstractCrudService<Student> implements CrudService<Student> {
+    public StudentService(Validator<Student> validator, CrudRepository<Student, Long> crudRepository) {
         super(validator, crudRepository);
     }
 
@@ -43,5 +45,11 @@ public class StudentsService extends AbstractCrudService<Student> implements Cru
         return studentRepository.add(student)
                 .orElseThrow(() -> new IllegalStateException("Student is not added to database!"));
 
+    }
+    public List<Student> findByGroup(StudentGroup studentGroup) {
+        List<Student> students = ((StudentRepository)crudRepository).findByGroup(studentGroup);
+        if(!students.isEmpty())
+            return students;
+        else return Collections.emptyList();
     }
 }

@@ -15,6 +15,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class AbstractCrudService<T> implements CrudService<T> {
@@ -73,6 +74,18 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
 
         return crudRepository.add(t)
                 .orElseThrow(() -> new IllegalStateException("Object is not added to database!"));
+    }
+
+    @Override
+    public T findOne(String id) {
+        if (!validator.isIdValid(id)) {
+            throw new IllegalArgumentException("Given id is not a number!");
+        }
+
+        Optional<T> element = crudRepository.findOne(Long.parseLong(id));
+        if(element.isPresent())
+            return element.get();
+        else throw new IllegalArgumentException("There is no object with such id!");
     }
 
     @Override

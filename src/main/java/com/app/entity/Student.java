@@ -32,7 +32,7 @@ public class Student {
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Remark> remakrs = new HashSet<>();
+    private Set<Remark> remarks = new HashSet<>();
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     @ToString.Exclude

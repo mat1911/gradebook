@@ -4,9 +4,8 @@ import com.app.app.AppContext;
 import com.app.controller.CrudController;
 import com.app.entity.Student;
 import com.app.entity.StudentGroup;
-import com.app.repository.impl.StudentGroupRepository;
 import com.app.repository.impl.StudentRepository;
-import com.app.service.impl.StudentsService;
+import com.app.service.impl.StudentService;
 import com.app.validator.impl.StudentValidator;
 import com.app.view.StudentView;
 import javafx.application.Platform;
@@ -18,10 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 
 public class StudentController extends CrudController<Student> {
@@ -42,14 +37,10 @@ public class StudentController extends CrudController<Student> {
     private TableView<Student> studentTable;
 
     private StudentGroup studentGroup;
-
     private StudentView studentView = new StudentView();
-
     private StudentValidator studentValidator = new StudentValidator();
-
     private StudentRepository studentRepository = new StudentRepository();
-
-    private StudentsService studentsService = new StudentsService(studentValidator, studentRepository);
+    private StudentService studentService = new StudentService(studentValidator, studentRepository);
 
     private ObservableList<Student> allStudents;
 
@@ -66,7 +57,7 @@ public class StudentController extends CrudController<Student> {
         Platform.runLater(() -> {
             groupNameLabel.setText("GRUPA: " + studentGroup.getName());
             studentView.setObjectsInTable(studentTable, filtered);
-            initFields(studentTable, allStudents, studentsService, studentView);
+            initFields(studentTable, allStudents, studentService, studentView);
         });
     }
 
@@ -78,7 +69,7 @@ public class StudentController extends CrudController<Student> {
 
             System.out.println(studentGroup.getStudents());
 
-            Student addedObject = studentsService
+            Student addedObject = studentService
                     .addStudentsToDatabase(getFieldsForAdding(), studentGroup);
 
             allStudents.add(addedObject);

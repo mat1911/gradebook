@@ -2,6 +2,7 @@ package com.app.repository.impl;
 
 import com.app.entity.Lesson;
 import com.app.entity.StudentGroup;
+import com.app.entity.Teacher;
 import com.app.repository.generic.AbstractGenericRepository;
 import com.app.repository.generic.CrudRepository;
 
@@ -72,5 +73,28 @@ public class LessonRepository extends AbstractGenericRepository<Lesson, Long> im
         }
         return Optional.of(foundLesson);
 
+    }
+
+
+
+    public List<Lesson> findByTeacher(Teacher loggedTeacher) {
+        List<Lesson> lessons;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+            entityTransaction.begin();
+            lessons = entityManager.createQuery(
+                    "SELECT l from Lesson l WHERE l.teacher = :teacher", Lesson.class).
+                    setParameter("teacher", loggedTeacher).getResultList();
+            entityTransaction.commit();
+        }catch (Exception e){
+            if(entityTransaction != null)
+                entityTransaction.rollback();
+            return Collections.emptyList();
+        } finally {
+            if (entityManager != null)
+                entityManager.close();
+        }
+        return lessons;
     }
 }

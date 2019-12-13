@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.GridPane;
 
-public class AdminMenuController{
+public class AdminMenuController {
     private ViewManager viewManager = new ViewManager();
 
     @FXML
@@ -27,22 +27,22 @@ public class AdminMenuController{
 
     @FXML
     private void openTeacherSubView(ActionEvent actionEvent) {
-        viewManager.changeSubView(SubViewType.TEACHER_VIEW, contentPane);
+        viewManager.changeSubView(SubViewType.A_TEACHER_VIEW, contentPane);
     }
 
     @FXML
     private void openGroupSubView(ActionEvent actionEvent) {
-        viewManager.changeSubView(SubViewType.GROUP_VIEW, contentPane);
+        viewManager.changeSubView(SubViewType.A_GROUP_VIEW, contentPane);
     }
 
     @FXML
     private void openSubjectSubView(ActionEvent actionEvent) {
-        viewManager.changeSubView(SubViewType.SUBJECTS_VIEW, contentPane);
+        viewManager.changeSubView(SubViewType.A_SUBJECTS_VIEW, contentPane);
     }
 
     @FXML
     private void openPlanSubView(ActionEvent actionEvent) {
-        viewManager.changeSubView(SubViewType.PLAN_VIEW, contentPane);
+        viewManager.changeSubView(SubViewType.A_PLAN_VIEW, contentPane);
     }
 
     @FXML

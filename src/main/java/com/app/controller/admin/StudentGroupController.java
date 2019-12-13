@@ -6,7 +6,7 @@ import com.app.controller.ViewManager;
 import com.app.entity.StudentGroup;
 import com.app.enums.SubViewType;
 import com.app.repository.impl.StudentGroupRepository;
-import com.app.service.impl.GroupService;
+import com.app.service.impl.StudentGroupService;
 import com.app.validator.impl.StudentGroupValidator;
 import com.app.view.StudentGroupView;
 import javafx.application.Platform;
@@ -41,19 +41,19 @@ public class StudentGroupController extends CrudController<StudentGroup> {
 
     private StudentGroupValidator studentGroupValidator = new StudentGroupValidator();
 
-    private GroupService groupService = new GroupService(studentGroupValidator, studentGroupRepository);
+    private StudentGroupService studentGroupService = new StudentGroupService(studentGroupValidator, studentGroupRepository);
 
     private ObservableList<StudentGroup> allGroups;
 
     public StudentGroupController() {
 
-        this.allGroups = FXCollections.observableList(groupService.getAllObjects());
+        this.allGroups = FXCollections.observableList(studentGroupService.getAllObjects());
 
         FilteredList<StudentGroup> filtered = new FilteredList(allGroups);
 
         Platform.runLater(() -> {
             studentGroupView.setObjectsInTable(groupsTable, filtered);
-            initFields(groupsTable, allGroups, groupService, studentGroupView);
+            initFields(groupsTable, allGroups, studentGroupService, studentGroupView);
         });
 
     }
@@ -90,7 +90,7 @@ public class StudentGroupController extends CrudController<StudentGroup> {
             appContext.setStudentGroup(selectedGroup);
 
             ViewManager viewManager = new ViewManager();
-            viewManager.changeSubView(SubViewType.STUDENT_VIEW, contentPane);
+            viewManager.changeSubView(SubViewType.A_STUDENT_VIEW, contentPane);
 
         }
     }

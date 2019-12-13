@@ -56,16 +56,23 @@ public class ViewManager {
 
     public Parent getRoot(SubViewType subViewType) {
         switch(subViewType) {
-            case TEACHER_VIEW:
-                return getRoot(ConstValues.TEACHER_FILENAME);
-            case GROUP_VIEW:
-                return getRoot(ConstValues.GROUPS_FILE_NAME);
-            case STUDENT_VIEW:
-                return getRoot(ConstValues.STUDENTS_FILE_NAME);
-            case SUBJECTS_VIEW:
-                return getRoot(ConstValues.SUBJECTS_FILE_NAME);
-            case PLAN_VIEW:
-                return getRoot(ConstValues.PLAN_FILE_NAME);
+            case A_TEACHER_VIEW:
+                return getRoot(ConstValues.A_TEACHER_FILENAME);
+            case A_GROUP_VIEW:
+                return getRoot(ConstValues.A_GROUPS_FILENAME);
+            case A_STUDENT_VIEW:
+                return getRoot(ConstValues.A_STUDENTS_FILENAME);
+            case A_SUBJECTS_VIEW:
+                return getRoot(ConstValues.A_SUBJECTS_FILENAME);
+            case A_PLAN_VIEW:
+                return getRoot(ConstValues.A_PLAN_FILENAME);
+            case T_GROUP_VIEW:
+                return getRoot(ConstValues.T_GROUPS_FILENAME);
+            case T_TIMETABLE_VIEW:
+                return getRoot(ConstValues.T_TIMETABLE_FILENAME);
+            case T_STUDENT_VIEW:
+                return getRoot(ConstValues.T_STUDENT_FILENAME);
+
         }
         throw new IllegalArgumentException("No such subView!");
     }
@@ -75,7 +82,6 @@ public class ViewManager {
     }
 
     public void changeSubView(SubViewType subViewType, Pane contentPane) {
-
         Platform.runLater(() -> {
             contentPane.getChildren().clear();
             contentPane.getChildren().add(getRoot(subViewType));
