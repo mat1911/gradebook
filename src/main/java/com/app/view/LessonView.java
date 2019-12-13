@@ -1,6 +1,7 @@
 package com.app.view;
 
 import com.app.entity.Lesson;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 
 public class LessonView {
@@ -14,6 +15,17 @@ public class LessonView {
         lessonTable.getItems().add(lessonToChange);
 
         lessonTable.refresh();
+    }
+
+    public void hideErrorMessage(Label errorMessageLabel) {
+
+        errorMessageLabel.setVisible(false);
+    }
+
+    public void showErrorMessage(Label errorMessageLabel, String errorMessage) {
+
+        errorMessageLabel.setText(errorMessage);
+        errorMessageLabel.setVisible(true);
     }
 
 }

@@ -15,17 +15,17 @@
             <children>
                 <TableView fx:id="lessonTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="208.0" minWidth="380.0" prefHeight="1000.0" prefWidth="1000.0">
                     <columns>
-                        <TableColumn editable="false" minWidth="3.0" prefWidth="30.0" text="Nr">
+                        <TableColumn editable="false" minWidth="3.0" prefWidth="41.0" text="Nr">
                             <cellValueFactory>
                                 <PropertyValueFactory property="lessonNumber" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn editable="false" prefWidth="162.0" text="Przedmiot">
+                        <TableColumn editable="false" minWidth="0.0" prefWidth="152.0" text="Przedmiot">
                             <cellValueFactory>
                                 <PropertyValueFactory property="subject" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn editable="false" prefWidth="209.0" text="Nauczyciel">
+                        <TableColumn editable="false" prefWidth="185.0" text="Nauczyciel">
                             <cellValueFactory>
                                 <PropertyValueFactory property="teacher" />
                             </cellValueFactory>
@@ -40,6 +40,7 @@
                 </TableView>
                 <VBox alignment="CENTER" minHeight="400.0" minWidth="180.0" prefHeight="1000.0" prefWidth="1000.0">
                     <children>
+                  <Label fx:id="errorLabel" prefHeight="24.0" prefWidth="1000.0" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
                         <Label prefHeight="17.0" prefWidth="1000.0" text="Data">
                             <VBox.margin>
                                 <Insets top="10.0" />

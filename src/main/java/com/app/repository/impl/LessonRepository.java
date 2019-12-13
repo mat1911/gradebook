@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class LessonRepository extends AbstractGenericRepository<Lesson, Long> implements CrudRepository<Lesson, Long> {
 
-    public List<Lesson> findAllWithDateAndGroup(LocalDate date, StudentGroup group){
+    public List<Lesson> findAllByDateAndGroup(LocalDate date, StudentGroup group){
 
         List<Lesson> foundLessons;
         try {
@@ -43,7 +43,7 @@ public class LessonRepository extends AbstractGenericRepository<Lesson, Long> im
 
     }
 
-    public Optional<Lesson> findWithDateAndGroupAndLessonNumber(LocalDate date, StudentGroup group, Long lessonNumber){
+    public Optional<Lesson> findByDateAndGroupAndLessonNumber(LocalDate date, StudentGroup group, Long lessonNumber){
 
         Lesson foundLesson;
         try {
@@ -74,8 +74,6 @@ public class LessonRepository extends AbstractGenericRepository<Lesson, Long> im
         return Optional.of(foundLesson);
 
     }
-
-
 
     public List<Lesson> findByTeacher(Teacher loggedTeacher) {
         List<Lesson> lessons;

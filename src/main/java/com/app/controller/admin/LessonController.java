@@ -13,8 +13,6 @@ import com.app.service.generic.ActionPerformer;
 import com.app.utility.MyTask;
 import com.app.view.LessonView;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -41,6 +39,9 @@ public class LessonController {
     @FXML
     private TableView lessonTable;
 
+    @FXML
+    private Label errorLabel;
+
     private StudentGroupRepository studentGroupRepository = new StudentGroupRepository();
 
     private TeacherRepository teacherRepository = new TeacherRepository();
@@ -55,7 +56,6 @@ public class LessonController {
 
 
     public LessonController() {
-
         initFields();
     }
 
@@ -68,11 +68,11 @@ public class LessonController {
                 Platform.runLater(() -> {
                     lessonTable.setItems(FXCollections
                             .observableArrayList(lessonRepository
-                                    .findAllWithDateAndGroup(datePicker.getValue(), (StudentGroup) groupBox.getValue())));
+                                    .findAllByDateAndGroup(datePicker.getValue(), (StudentGroup) groupBox.getValue())));
                 });
 
             }
-        });
+        }, null);
     }
 
     @FXML
@@ -90,7 +90,7 @@ public class LessonController {
             Lesson changedLesson = lessonService.changeLesson(lesson);
 
             lessonView.updateLessonTable(lessonTable, changedLesson);
-        });
+        }, "Nie można dodać lekcji. Być może nauczyciel ma zajęcia w tym czasie lub nie uzupełniono wszystkich pól.");
 
     }
 
@@ -109,12 +109,15 @@ public class LessonController {
         });
     }
 
-    private void performAction(ActionPerformer actionPerformer) {
+    private void performAction(ActionPerformer actionPerformer, String errorMessage) {
 
         MyTask myTask = new MyTask(() -> {
+
+            Platform.runLater(() -> lessonView.hideErrorMessage(errorLabel));
             try {
                 actionPerformer.perform();
             } catch (Exception e) {
+                Platform.runLater(() -> lessonView.showErrorMessage(errorLabel, errorMessage));
                 e.printStackTrace();
                 System.out.println(e.getMessage());
             }

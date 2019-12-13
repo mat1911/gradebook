@@ -56,7 +56,7 @@ public class StudentGroupController {
             try {
                 this.allGroups = FXCollections.observableList(studentGroupService.findByTeacher(appContext.getLoggedTeacher()));
                 System.out.println(allGroups.toString());
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             Platform.runLater(() -> studentGroupView.setObjectsInTable(groupsTable, new FilteredList<>(allGroups)));
@@ -76,10 +76,10 @@ public class StudentGroupController {
     }
 
     @FXML
-    private void chooseGroup(MouseEvent mouseEvent){
+    private void chooseGroup(MouseEvent mouseEvent) {
         MyTask myTask = new MyTask(() -> {
-            if(!groupsTable.getSelectionModel().isEmpty() && mouseEvent.getClickCount() == 1
-                    && mouseEvent.getButton() == MouseButton.PRIMARY ){
+            if (!groupsTable.getSelectionModel().isEmpty() && mouseEvent.getClickCount() == 1
+                    && mouseEvent.getButton() == MouseButton.PRIMARY) {
 
                 StudentGroup selectedGroup = groupsTable.getSelectionModel().getSelectedItem();
                 List<Student> students = studentService.findByGroup(selectedGroup);
@@ -94,10 +94,10 @@ public class StudentGroupController {
     }
 
     @FXML
-    private void chooseStudent (MouseEvent mouseEvent){
+    private void chooseStudent(MouseEvent mouseEvent) {
         MyTask myTask = new MyTask(() -> {
-            if(!studentTable.getSelectionModel().isEmpty() && mouseEvent.getClickCount() == 2
-                    && mouseEvent.getButton() == MouseButton.PRIMARY ){
+            if (!studentTable.getSelectionModel().isEmpty() && mouseEvent.getClickCount() == 2
+                    && mouseEvent.getButton() == MouseButton.PRIMARY) {
 
                 Student selectedStudent = studentTable.getSelectionModel().getSelectedItem();
                 appContext.setSelectedStudent(selectedStudent);
