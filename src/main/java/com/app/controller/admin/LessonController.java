@@ -10,7 +10,7 @@ import com.app.repository.impl.SubjectRepository;
 import com.app.repository.impl.TeacherRepository;
 import com.app.service.LessonService;
 import com.app.service.generic.ActionPerformer;
-import com.app.utility.MyTask;
+import com.app.utility.BackgroundTask;
 import com.app.view.LessonView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -111,7 +111,7 @@ public class LessonController {
 
     private void performAction(ActionPerformer actionPerformer, String errorMessage) {
 
-        MyTask myTask = new MyTask(() -> {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
 
             Platform.runLater(() -> lessonView.hideErrorMessage(errorLabel));
             try {
@@ -122,6 +122,6 @@ public class LessonController {
                 System.out.println(e.getMessage());
             }
         });
-        myTask.execute();
+        backgroundTask.execute();
     }
 }

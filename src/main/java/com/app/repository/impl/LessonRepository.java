@@ -95,4 +95,25 @@ public class LessonRepository extends AbstractGenericRepository<Lesson, Long> im
         }
         return lessons;
     }
+
+    public List<Lesson> findByGroup(StudentGroup group) {
+        List<Lesson> lessons;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+            entityTransaction.begin();
+            lessons = entityManager.createQuery(
+                    "SELECT l from Lesson l WHERE l.group = :group", Lesson.class).
+                    setParameter("group", group).getResultList();
+            entityTransaction.commit();
+        }catch (Exception e){
+            if(entityTransaction != null)
+                entityTransaction.rollback();
+            return Collections.emptyList();
+        } finally {
+            if (entityManager != null)
+                entityManager.close();
+        }
+        return lessons;
+    }
 }

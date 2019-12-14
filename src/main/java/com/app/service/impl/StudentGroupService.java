@@ -30,9 +30,7 @@ public class StudentGroupService extends AbstractCrudService<StudentGroup> imple
             }
         }
 
-        if(!studentGroups.isEmpty())
-            return studentGroups;
-        else return Collections.emptyList();
+        return studentGroups.isEmpty() ? Collections.emptyList() : studentGroups;
     }
 
     public StudentGroup getGroupByLesson(Lesson lesson) {

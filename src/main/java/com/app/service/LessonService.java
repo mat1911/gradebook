@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.entity.Lesson;
+import com.app.entity.StudentGroup;
 import com.app.entity.Teacher;
 import com.app.repository.impl.LessonRepository;
 
@@ -37,7 +38,7 @@ public class LessonService {
 
     public List<Lesson> findByTeacher(Teacher loggedTeacher) {
         List<Lesson> lessons = lessonRepository.findByTeacher(loggedTeacher);
-        return lessons.isEmpty() ? lessons : Collections.emptyList();
+        return lessons.isEmpty() ? Collections.emptyList() : lessons;
     }
 
     private boolean checkIfTeacherHasLessonsWithOtherGroup(Lesson lessonToAdd) {
@@ -49,5 +50,10 @@ public class LessonService {
                         && lesson.getDate().equals(lessonToAdd.getDate())
                         && !lesson.getGroup().getId().equals(lessonToAdd.getGroup().getId()));
 
+    }
+
+    public List<Lesson> findByGroup(StudentGroup group) {
+        List<Lesson> lessons = lessonRepository.findByGroup(group);
+        return lessons.isEmpty() ? Collections.emptyList() : lessons;
     }
 }

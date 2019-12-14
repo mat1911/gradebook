@@ -9,7 +9,7 @@ import com.app.repository.impl.StudentGroupRepository;
 import com.app.repository.impl.StudentRepository;
 import com.app.service.impl.StudentGroupService;
 import com.app.service.impl.StudentService;
-import com.app.utility.MyTask;
+import com.app.utility.BackgroundTask;
 import com.app.validator.impl.StudentGroupValidator;
 import com.app.validator.impl.StudentValidator;
 import com.app.view.StudentGroupView;
@@ -25,7 +25,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 
 import java.util.List;
 
@@ -48,36 +47,29 @@ public class StudentGroupController {
     private Label chosenGroupNameLabel;
     @FXML
     private TableView<Student> studentTable;
-    @FXML
-    private HBox contentPane;
 
     public StudentGroupController() {
-        MyTask myTask = new MyTask(() -> {
-            try {
-                this.allGroups = FXCollections.observableList(studentGroupService.findByTeacher(appContext.getLoggedTeacher()));
-                System.out.println(allGroups.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
+            this.allGroups = FXCollections.observableList(studentGroupService.findByTeacher(appContext.getLoggedTeacher()));
             Platform.runLater(() -> studentGroupView.setObjectsInTable(groupsTable, new FilteredList<>(allGroups)));
         });
-        myTask.execute();
+        backgroundTask.execute();
     }
 
     @FXML
     private void searchForObject(KeyEvent keyEvent) {
-        MyTask myTask = new MyTask(() -> {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
             FilteredList<StudentGroup> filteredObjects = studentGroupService
                     .filterObjects(allGroups, searchField.getText());
 
             Platform.runLater(() -> studentGroupView.setObjectsInTable(groupsTable, filteredObjects));
         });
-        myTask.execute();
+        backgroundTask.execute();
     }
 
     @FXML
     private void chooseGroup(MouseEvent mouseEvent) {
-        MyTask myTask = new MyTask(() -> {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
             if (!groupsTable.getSelectionModel().isEmpty() && mouseEvent.getClickCount() == 1
                     && mouseEvent.getButton() == MouseButton.PRIMARY) {
 
@@ -90,21 +82,21 @@ public class StudentGroupController {
                 });
             }
         });
-        myTask.execute();
+        backgroundTask.execute();
     }
 
     @FXML
     private void chooseStudent(MouseEvent mouseEvent) {
-        MyTask myTask = new MyTask(() -> {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
             if (!studentTable.getSelectionModel().isEmpty() && mouseEvent.getClickCount() == 2
                     && mouseEvent.getButton() == MouseButton.PRIMARY) {
 
                 Student selectedStudent = studentTable.getSelectionModel().getSelectedItem();
                 appContext.setSelectedStudent(selectedStudent);
 
-                viewManager.changeSubView(SubViewType.T_STUDENT_VIEW, contentPane);
+                viewManager.changeSubView(SubViewType.T_STUDENT_VIEW);
             }
         });
-        myTask.execute();
+        backgroundTask.execute();
     }
 }

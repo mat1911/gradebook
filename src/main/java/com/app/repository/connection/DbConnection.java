@@ -1,5 +1,7 @@
 package com.app.repository.connection;
 
+import com.app.app.App;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -16,5 +18,14 @@ public class DbConnection {
 
     public EntityManagerFactory getEntityManagerFactory(){
         return entityManagerFactory;
+    }
+
+    public static void load() {
+        ClassLoader classLoader = App.class.getClassLoader();
+        try {
+            Class aClass = classLoader.loadClass("com.app.repository.connection.DbConnection");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -8,7 +8,7 @@ import com.app.exceptions.ObjectNotFoundException;
 import com.app.repository.impl.TeacherRepository;
 import com.app.service.LoginService;
 import com.app.service.impl.TeacherService;
-import com.app.utility.MyTask;
+import com.app.utility.BackgroundTask;
 import com.app.validator.impl.TeacherValidator;
 import com.app.view.LoginView;
 import javafx.application.Platform;
@@ -31,7 +31,7 @@ public class LoginController {
 
     @FXML
     private void tryLogin() {
-        MyTask myTask = new MyTask(() -> {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
             try {
                 LoginService loginService = new LoginService();
                 LoginType loginType = loginService.tryLogin(emailField.getText(), passField.getText());
@@ -42,7 +42,7 @@ public class LoginController {
                 Platform.runLater(() -> loginView.showLabel(wrongPass, true));
             }
         });
-        myTask.execute();
+        backgroundTask.execute();
     }
 
     @FXML

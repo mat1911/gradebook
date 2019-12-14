@@ -1,9 +1,9 @@
 package com.app.app;
 
 import com.app.controller.ViewManager;
-import com.app.utility.DBTest;
-import com.app.utility.MyTask;
 import com.app.enums.WindowViewType;
+import com.app.repository.connection.DbConnection;
+import com.app.utility.BackgroundTask;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,7 +20,7 @@ public class App extends Application {
         viewManager.showView(WindowViewType.LOGIN_VIEW);
         viewManager.showStage();
 
-        MyTask myTask = new MyTask(() -> DBTest.populateDB());
-        myTask.execute();
+        BackgroundTask backgroundTask = new BackgroundTask(DbConnection::load);
+        backgroundTask.execute();
     }
 }

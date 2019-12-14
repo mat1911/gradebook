@@ -90,7 +90,7 @@ public class StudentGroupController extends CrudController<StudentGroup> {
             appContext.setStudentGroup(selectedGroup);
 
             ViewManager viewManager = new ViewManager();
-            viewManager.changeSubView(SubViewType.A_STUDENT_VIEW, contentPane);
+            viewManager.changeSubView(SubViewType.A_STUDENT_VIEW);
 
         }
     }

@@ -22,13 +22,13 @@ public class ViewManager {
     public void showView(WindowViewType windowViewType) {
         switch(windowViewType) {
             case LOGIN_VIEW:
-                showWindow(ConstValues.LOGIN_FILENAME, ConstValues.LOGIN_WIDTH, ConstValues.LOGIN_HEIGHT);
+                showWindow(ConstValues.LOGIN_FILENAME, ConstValues.WINDOW_WIDTH, ConstValues.WINDOW_HEIGHT);
                 return;
             case ADMIN_MENU_VIEW:
-                showWindow(ConstValues.ADMIN_MENU_FILENAME, ConstValues.ADMIN_MENU_WIDTH, ConstValues.ADMIN_MENU_HEIGHT);
+                showWindow(ConstValues.ADMIN_MENU_FILENAME, ConstValues.WINDOW_WIDTH, ConstValues.WINDOW_HEIGHT);
                 return;
             case TEACHER_MENU_VIEW:
-                showWindow(ConstValues.TEACHER_MENU_FILENAME, ConstValues.TEACHER_MENU_WIDTH, ConstValues.TEACHER_MENU_HEIGHT);
+                showWindow(ConstValues.TEACHER_MENU_FILENAME, ConstValues.WINDOW_WIDTH, ConstValues.WINDOW_HEIGHT);
                 return;
         }
         throw new IllegalArgumentException("No such windowView!");
@@ -81,10 +81,17 @@ public class ViewManager {
         appContext.getStage().show();
     }
 
-    public void changeSubView(SubViewType subViewType, Pane contentPane) {
+    public void changeSubView(SubViewType subViewType) {
+        Pane contentPane = appContext.getContentPane();
+        System.out.println(contentPane.toString());
         Platform.runLater(() -> {
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(getRoot(subViewType));
+            try {
+                contentPane.getChildren().clear();
+                contentPane.getChildren().add(getRoot(subViewType));
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
         });
     }
 }

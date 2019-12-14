@@ -2,10 +2,10 @@ package com.app.utility;
 
 import javafx.concurrent.Task;
 
-public class MyTask extends Task<Void> {
+public class BackgroundTask extends Task<Void> {
     private Runnable runnable;
 
-    public MyTask(Runnable runnable) {
+    public BackgroundTask(Runnable runnable) {
         this.runnable = runnable;
     }
 

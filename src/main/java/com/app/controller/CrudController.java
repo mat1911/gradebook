@@ -2,7 +2,7 @@ package com.app.controller;
 
 import com.app.service.generic.ActionPerformer;
 import com.app.service.generic.CrudService;
-import com.app.utility.MyTask;
+import com.app.utility.BackgroundTask;
 import com.app.view.CrudView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -161,7 +161,7 @@ public class CrudController<T>{
 
     protected void performAction(ActionPerformer actionPerformer, String errorMess){
 
-        MyTask myTask = new MyTask(() -> {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
             Platform.runLater(() -> crudView.hideErrorMessage(errorMessage));
             try {
                 actionPerformer.perform();
@@ -172,7 +172,7 @@ public class CrudController<T>{
                 System.out.println(e.getMessage());
             }
         });
-        myTask.execute();
+        backgroundTask.execute();
     }
 
     private T getObjectFromTable(){
