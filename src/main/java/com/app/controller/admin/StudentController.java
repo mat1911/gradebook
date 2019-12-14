@@ -13,13 +13,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class StudentController extends CrudController<Student> {
+
+public class StudentController extends CrudController<Student> implements Initializable {
 
     @FXML
     private TextField idField;
@@ -44,8 +48,8 @@ public class StudentController extends CrudController<Student> {
 
     private ObservableList<Student> allStudents;
 
-
-    public StudentController() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         AppContext appContext = AppContext.getInstance();
         studentGroup = appContext.getStudentGroup();
@@ -59,6 +63,7 @@ public class StudentController extends CrudController<Student> {
             studentView.setObjectsInTable(studentTable, filtered);
             initFields(studentTable, allStudents, studentService, studentView);
         });
+
     }
 
     @FXML
@@ -99,7 +104,4 @@ public class StudentController extends CrudController<Student> {
         changeAccessibilityForButtons(new Button[]{removeOkButton, addOkButton}, new Button[]{editOkButton});
         changeAccessibilityForFields(new TextField[]{}, new TextField[]{idField, nameField, surnameField});
     }
-
-
-
 }

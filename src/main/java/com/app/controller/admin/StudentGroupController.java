@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,7 +22,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-public class StudentGroupController extends CrudController<StudentGroup> {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StudentGroupController extends CrudController<StudentGroup> implements Initializable {
 
     @FXML
     private TextField idField;
@@ -36,16 +40,13 @@ public class StudentGroupController extends CrudController<StudentGroup> {
     private VBox contentPane;
 
     private StudentGroupView studentGroupView = new StudentGroupView();
-
     private StudentGroupRepository studentGroupRepository = new StudentGroupRepository();
-
     private StudentGroupValidator studentGroupValidator = new StudentGroupValidator();
-
     private StudentGroupService studentGroupService = new StudentGroupService(studentGroupValidator, studentGroupRepository);
-
     private ObservableList<StudentGroup> allGroups;
 
-    public StudentGroupController() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         this.allGroups = FXCollections.observableList(studentGroupService.getAllObjects());
 
@@ -55,7 +56,6 @@ public class StudentGroupController extends CrudController<StudentGroup> {
             studentGroupView.setObjectsInTable(groupsTable, filtered);
             initFields(groupsTable, allGroups, studentGroupService, studentGroupView);
         });
-
     }
 
     @FXML

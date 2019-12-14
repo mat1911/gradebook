@@ -93,6 +93,7 @@ public class LessonRepository extends AbstractGenericRepository<Lesson, Long> im
             if (entityManager != null)
                 entityManager.close();
         }
+
         return lessons;
     }
 

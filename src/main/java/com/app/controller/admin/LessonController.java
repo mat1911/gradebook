@@ -11,15 +11,20 @@ import com.app.repository.impl.TeacherRepository;
 import com.app.service.LessonService;
 import com.app.service.generic.ActionPerformer;
 import com.app.utility.BackgroundTask;
+import com.app.validator.impl.LessonValidator;
 import com.app.view.LessonView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.net.URL;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
-public class LessonController {
+public class LessonController implements Initializable {
 
     @FXML
     private DatePicker datePicker;
@@ -43,22 +48,31 @@ public class LessonController {
     private Label errorLabel;
 
     private StudentGroupRepository studentGroupRepository = new StudentGroupRepository();
-
     private TeacherRepository teacherRepository = new TeacherRepository();
-
     private SubjectRepository subjectRepository = new SubjectRepository();
-
     private LessonRepository lessonRepository = new LessonRepository();
-
     private LessonService lessonService = new LessonService();
-
     private LessonView lessonView = new LessonView();
+    private LessonValidator lessonValidator = new LessonValidator();
 
 
-    public LessonController() {
-        initFields();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Platform.runLater(() -> {
+
+            lessonTable.setItems(FXCollections.observableArrayList());
+            groupBox.setItems(FXCollections.observableArrayList(studentGroupRepository.findAll()));
+            teacherBox.setItems(FXCollections.observableArrayList(teacherRepository.findAll()));
+            subjectBox.setItems(FXCollections.observableArrayList(subjectRepository.findAll()));
+            lessonNumberBox.setItems(FXCollections.observableArrayList());
+
+            groupBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> loadLessons());
+
+            IntStream.range(1, 9).forEach(num -> lessonNumberBox.getItems().add(num));
+
+        });
     }
-
 
     @FXML
     protected void loadLessons() {
@@ -87,26 +101,17 @@ public class LessonController {
                     .lessonNumber(Long.parseLong(lessonNumberBox.getValue().toString()))
                     .build();
 
+            lessonValidator.validate(lesson);
+
+            if (lessonValidator.hasErrors()){
+                throw new IllegalArgumentException("Some fields are not valid!");
+            }
+
             Lesson changedLesson = lessonService.changeLesson(lesson);
 
             lessonView.updateLessonTable(lessonTable, changedLesson);
         }, "Nie można dodać lekcji. Być może nauczyciel ma zajęcia w tym czasie lub nie uzupełniono wszystkich pól.");
 
-    }
-
-    private void initFields() {
-        Platform.runLater(() -> {
-
-            lessonTable.setItems(FXCollections.observableArrayList());
-            groupBox.setItems(FXCollections.observableArrayList(studentGroupRepository.findAll()));
-            teacherBox.setItems(FXCollections.observableArrayList(teacherRepository.findAll()));
-            subjectBox.setItems(FXCollections.observableArrayList(subjectRepository.findAll()));
-            lessonNumberBox.setItems(FXCollections.observableArrayList());
-
-            groupBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> loadLessons());
-
-            IntStream.range(1, 9).forEach(num -> lessonNumberBox.getItems().add(num));
-        });
     }
 
     private void performAction(ActionPerformer actionPerformer, String errorMessage) {
@@ -124,4 +129,6 @@ public class LessonController {
         });
         backgroundTask.execute();
     }
+
+
 }

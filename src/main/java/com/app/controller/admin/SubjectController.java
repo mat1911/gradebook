@@ -11,11 +11,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class SubjectController extends CrudController<Subject> {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class SubjectController extends CrudController<Subject> implements Initializable {
 
     @FXML
     private TextField idField;
@@ -26,19 +30,14 @@ public class SubjectController extends CrudController<Subject> {
     @FXML
     private TableView<Subject> subjectsTable;
 
-
-
     private SubjectView subjectView = new SubjectView();
-
     private SubjectRepository subjectRepository = new SubjectRepository();
-
     private SubjectValidator subjectValidator = new SubjectValidator();
-
     private SubjectService subjectService = new SubjectService(subjectValidator, subjectRepository);
-
     private ObservableList<Subject> allSubjects;
 
-    public SubjectController() {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
         this.allSubjects = FXCollections.observableList(subjectService.getAllObjects());
 
@@ -48,7 +47,6 @@ public class SubjectController extends CrudController<Subject> {
             subjectView.setObjectsInTable(subjectsTable, filtered);
             initFields(subjectsTable, allSubjects, subjectService, subjectView);
         });
-
     }
 
     @FXML
@@ -71,5 +69,4 @@ public class SubjectController extends CrudController<Subject> {
         changeAccessibilityForButtons(new Button[]{removeOkButton, addOkButton}, new Button[]{editOkButton});
         changeAccessibilityForFields(new TextField[]{}, new TextField[]{idField, nameField});
     }
-
 }
