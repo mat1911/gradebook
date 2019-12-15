@@ -5,13 +5,9 @@ import com.app.controller.ViewManager;
 import com.app.entity.Student;
 import com.app.entity.StudentGroup;
 import com.app.enums.SubViewType;
-import com.app.repository.impl.StudentGroupRepository;
-import com.app.repository.impl.StudentRepository;
 import com.app.service.impl.StudentGroupService;
 import com.app.service.impl.StudentService;
 import com.app.utility.BackgroundTask;
-import com.app.validator.impl.StudentGroupValidator;
-import com.app.validator.impl.StudentValidator;
 import com.app.view.StudentGroupView;
 import com.app.view.StudentView;
 import javafx.application.Platform;
@@ -33,11 +29,11 @@ public class StudentGroupController {
     private ViewManager viewManager = new ViewManager();
 
     private StudentGroupView studentGroupView = new StudentGroupView();
-    private StudentGroupService studentGroupService = new StudentGroupService(new StudentGroupValidator(), new StudentGroupRepository());
+    private StudentGroupService studentGroupService = new StudentGroupService();
     private ObservableList<StudentGroup> allGroups;
 
     private StudentView studentView = new StudentView();
-    private StudentService studentService = new StudentService(new StudentValidator(), new StudentRepository());
+    private StudentService studentService = new StudentService();
 
     @FXML
     private TextField searchField;

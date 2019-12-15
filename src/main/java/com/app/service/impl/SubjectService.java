@@ -1,11 +1,11 @@
 package com.app.service.impl;
 
 import com.app.entity.*;
-import com.app.repository.generic.CrudRepository;
+import com.app.repository.impl.SubjectRepository;
 import com.app.service.LessonService;
 import com.app.service.generic.AbstractCrudService;
 import com.app.service.generic.CrudService;
-import com.app.validator.generic.Validator;
+import com.app.validator.impl.SubjectValidator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,15 +13,16 @@ import java.util.List;
 
 public class SubjectService extends AbstractCrudService<Subject> implements CrudService<Subject> {
 
-    public SubjectService(Validator<Subject> validator, CrudRepository<Subject, Long> crudRepository) {
-        super(validator, crudRepository);
+    private SubjectRepository subjectRepository = new SubjectRepository();
+    private SubjectValidator subjectValidator = new SubjectValidator();
+
+    public SubjectService(){
+        super.initialize(subjectValidator, subjectRepository);
     }
 
     public List<Subject> findByStudent(Student selectedStudent) {
         List<Lesson> studentLessons = new LessonService().findByGroup(selectedStudent.getGroup());
-        System.out.println(studentLessons.toString());
         List<Subject> studentSubjects = new ArrayList<>();
-
         for(Lesson lesson : studentLessons) {
             Subject check = getSubjectByLesson(lesson);
             if(!studentSubjects.contains(check)) {
@@ -30,6 +31,10 @@ public class SubjectService extends AbstractCrudService<Subject> implements Crud
         }
 
         return studentSubjects.isEmpty() ? Collections.emptyList() : studentSubjects;
+    }
+
+    public List<Subject> findAll(){
+        return subjectRepository.findAll();
     }
 
     private Subject getSubjectByLesson(Lesson lesson) {

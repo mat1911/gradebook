@@ -18,6 +18,8 @@ public class Mark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String mark;
     private String description;
 
     @ManyToOne(cascade = CascadeType.MERGE)

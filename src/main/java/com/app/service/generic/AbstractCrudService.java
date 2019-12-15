@@ -25,7 +25,7 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
     protected Validator<T> validator;
     protected CrudRepository<T, Long> crudRepository;
 
-    public AbstractCrudService(Validator<T> validator, CrudRepository<T, Long> crudRepository) {
+    public void initialize(Validator<T> validator, CrudRepository<T, Long> crudRepository){
         this.validator = validator;
         this.crudRepository = crudRepository;
     }

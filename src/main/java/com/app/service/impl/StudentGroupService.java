@@ -3,11 +3,11 @@ package com.app.service.impl;
 import com.app.entity.Lesson;
 import com.app.entity.StudentGroup;
 import com.app.entity.Teacher;
-import com.app.repository.generic.CrudRepository;
+import com.app.repository.impl.StudentGroupRepository;
 import com.app.service.LessonService;
 import com.app.service.generic.AbstractCrudService;
 import com.app.service.generic.CrudService;
-import com.app.validator.generic.Validator;
+import com.app.validator.impl.StudentGroupValidator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,8 +15,11 @@ import java.util.List;
 
 public class StudentGroupService extends AbstractCrudService<StudentGroup> implements CrudService<StudentGroup> {
 
-    public StudentGroupService(Validator<StudentGroup> validator, CrudRepository<StudentGroup, Long> crudRepository) {
-        super(validator, crudRepository);
+    private StudentGroupValidator studentGroupValidator = new StudentGroupValidator();
+    private StudentGroupRepository studentGroupRepository = new StudentGroupRepository();
+
+    public StudentGroupService() {
+        super.initialize(studentGroupValidator, studentGroupRepository);
     }
 
     public List<StudentGroup> findByTeacher(Teacher loggedTeacher) {
@@ -40,5 +43,9 @@ public class StudentGroupService extends AbstractCrudService<StudentGroup> imple
                 return group;
         }
         throw new IllegalArgumentException("There is no group associated with such lesson!");
+    }
+
+    public List<StudentGroup> findAll(){
+        return studentGroupRepository.findAll();
     }
 }

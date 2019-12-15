@@ -5,9 +5,7 @@ import com.app.controller.CrudController;
 import com.app.controller.ViewManager;
 import com.app.entity.StudentGroup;
 import com.app.enums.SubViewType;
-import com.app.repository.impl.StudentGroupRepository;
 import com.app.service.impl.StudentGroupService;
-import com.app.validator.impl.StudentGroupValidator;
 import com.app.view.StudentGroupView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -40,9 +38,7 @@ public class StudentGroupController extends CrudController<StudentGroup> impleme
     private VBox contentPane;
 
     private StudentGroupView studentGroupView = new StudentGroupView();
-    private StudentGroupRepository studentGroupRepository = new StudentGroupRepository();
-    private StudentGroupValidator studentGroupValidator = new StudentGroupValidator();
-    private StudentGroupService studentGroupService = new StudentGroupService(studentGroupValidator, studentGroupRepository);
+    private StudentGroupService studentGroupService = new StudentGroupService();
     private ObservableList<StudentGroup> allGroups;
 
     @Override

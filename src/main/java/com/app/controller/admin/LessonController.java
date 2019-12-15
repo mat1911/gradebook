@@ -4,14 +4,12 @@ import com.app.entity.Lesson;
 import com.app.entity.StudentGroup;
 import com.app.entity.Subject;
 import com.app.entity.Teacher;
-import com.app.repository.impl.LessonRepository;
-import com.app.repository.impl.StudentGroupRepository;
-import com.app.repository.impl.SubjectRepository;
-import com.app.repository.impl.TeacherRepository;
 import com.app.service.LessonService;
 import com.app.service.generic.ActionPerformer;
+import com.app.service.impl.StudentGroupService;
+import com.app.service.impl.SubjectService;
+import com.app.service.impl.TeacherService;
 import com.app.utility.BackgroundTask;
-import com.app.validator.impl.LessonValidator;
 import com.app.view.LessonView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -20,7 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
@@ -47,14 +44,11 @@ public class LessonController implements Initializable {
     @FXML
     private Label errorLabel;
 
-    private StudentGroupRepository studentGroupRepository = new StudentGroupRepository();
-    private TeacherRepository teacherRepository = new TeacherRepository();
-    private SubjectRepository subjectRepository = new SubjectRepository();
-    private LessonRepository lessonRepository = new LessonRepository();
+    private StudentGroupService studentGroupService = new StudentGroupService();
+    private TeacherService teacherService = new TeacherService();
+    private SubjectService subjectService = new SubjectService();
     private LessonService lessonService = new LessonService();
     private LessonView lessonView = new LessonView();
-    private LessonValidator lessonValidator = new LessonValidator();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,9 +56,9 @@ public class LessonController implements Initializable {
         Platform.runLater(() -> {
 
             lessonTable.setItems(FXCollections.observableArrayList());
-            groupBox.setItems(FXCollections.observableArrayList(studentGroupRepository.findAll()));
-            teacherBox.setItems(FXCollections.observableArrayList(teacherRepository.findAll()));
-            subjectBox.setItems(FXCollections.observableArrayList(subjectRepository.findAll()));
+            groupBox.setItems(FXCollections.observableArrayList(studentGroupService.findAll()));
+            teacherBox.setItems(FXCollections.observableArrayList(teacherService.findAll()));
+            subjectBox.setItems(FXCollections.observableArrayList(subjectService.findAll()));
             lessonNumberBox.setItems(FXCollections.observableArrayList());
 
             groupBox.getSelectionModel().selectedItemProperty().addListener((observableValue, o, t1) -> loadLessons());
@@ -81,7 +75,7 @@ public class LessonController implements Initializable {
             if (datePicker.getValue() != null && groupBox.getValue() != null) {
                 Platform.runLater(() -> {
                     lessonTable.setItems(FXCollections
-                            .observableArrayList(lessonRepository
+                            .observableArrayList(lessonService
                                     .findAllByDateAndGroup(datePicker.getValue(), (StudentGroup) groupBox.getValue())));
                 });
 
@@ -100,12 +94,6 @@ public class LessonController implements Initializable {
                     .subject((Subject) subjectBox.getValue())
                     .lessonNumber(Long.parseLong(lessonNumberBox.getValue().toString()))
                     .build();
-
-            lessonValidator.validate(lesson);
-
-            if (lessonValidator.hasErrors()){
-                throw new IllegalArgumentException("Some fields are not valid!");
-            }
 
             Lesson changedLesson = lessonService.changeLesson(lesson);
 

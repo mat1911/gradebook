@@ -2,9 +2,7 @@ package com.app.controller.admin;
 
 import com.app.controller.CrudController;
 import com.app.entity.Subject;
-import com.app.repository.impl.SubjectRepository;
 import com.app.service.impl.SubjectService;
-import com.app.validator.impl.SubjectValidator;
 import com.app.view.SubjectView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -31,9 +29,7 @@ public class SubjectController extends CrudController<Subject> implements Initia
     private TableView<Subject> subjectsTable;
 
     private SubjectView subjectView = new SubjectView();
-    private SubjectRepository subjectRepository = new SubjectRepository();
-    private SubjectValidator subjectValidator = new SubjectValidator();
-    private SubjectService subjectService = new SubjectService(subjectValidator, subjectRepository);
+    private SubjectService subjectService = new SubjectService();
     private ObservableList<Subject> allSubjects;
 
     @Override

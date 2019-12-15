@@ -32,4 +32,26 @@ public class MarkRepository extends AbstractGenericRepository<Mark, Long> implem
         }
         return marks;
     }
+
+    public List<Mark> findByStudent(Student selectedStudent) {
+        List<Mark> marks;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+            entityTransaction.begin();
+            marks = entityManager.createQuery(
+                    "SELECT m from Mark m WHERE m.student = :selectedStudent", Mark.class)
+                    .setParameter("selectedStudent", selectedStudent)
+                    .getResultList();
+            entityTransaction.commit();
+        }catch (Exception e){
+            if(entityTransaction != null)
+                entityTransaction.rollback();
+            return Collections.emptyList();
+        } finally {
+            if (entityManager != null)
+                entityManager.close();
+        }
+        return marks;
+    }
 }

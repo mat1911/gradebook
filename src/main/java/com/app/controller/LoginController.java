@@ -62,10 +62,7 @@ public class LoginController {
                 viewManager.showView(WindowViewType.ADMIN_MENU_VIEW);
                 break;
             case TEACHER:
-                TeacherRepository teacherRepository = new TeacherRepository();
-                TeacherValidator teacherValidator = new TeacherValidator();
-                TeacherService teacherService = new TeacherService(teacherValidator, teacherRepository);
-
+                TeacherService teacherService = new TeacherService();
                 Teacher loggedTeacher = teacherService.findByEmail(emailField.getText());
                 AppContext.getInstance().setLoggedTeacher(loggedTeacher);
                 viewManager.showView(WindowViewType.TEACHER_MENU_VIEW);

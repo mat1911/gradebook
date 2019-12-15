@@ -4,9 +4,7 @@ import com.app.app.AppContext;
 import com.app.controller.CrudController;
 import com.app.entity.Student;
 import com.app.entity.StudentGroup;
-import com.app.repository.impl.StudentRepository;
 import com.app.service.impl.StudentService;
-import com.app.validator.impl.StudentValidator;
 import com.app.view.StudentView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -42,9 +40,7 @@ public class StudentController extends CrudController<Student> implements Initia
 
     private StudentGroup studentGroup;
     private StudentView studentView = new StudentView();
-    private StudentValidator studentValidator = new StudentValidator();
-    private StudentRepository studentRepository = new StudentRepository();
-    private StudentService studentService = new StudentService(studentValidator, studentRepository);
+    private StudentService studentService = new StudentService();
 
     private ObservableList<Student> allStudents;
 

@@ -5,12 +5,10 @@ import com.app.entity.Mark;
 import com.app.entity.Remark;
 import com.app.entity.Student;
 import com.app.entity.Subject;
-import com.app.repository.impl.SubjectRepository;
 import com.app.service.MarkService;
 import com.app.service.RemarkService;
 import com.app.service.impl.SubjectService;
 import com.app.utility.BackgroundTask;
-import com.app.validator.impl.SubjectValidator;
 import com.app.view.MarkView;
 import com.app.view.RemarkView;
 import com.app.view.SubjectView;
@@ -19,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -35,7 +34,7 @@ public class StudentController {
     private MarkService markService = new MarkService();
 
     private SubjectView subjectView = new SubjectView();
-    private SubjectService subjectService = new SubjectService(new SubjectValidator(), new SubjectRepository());
+    private SubjectService subjectService = new SubjectService();
     private ObservableList<Subject> allSubjects;
 
     private RemarkView remarkView = new RemarkView();
@@ -52,6 +51,8 @@ public class StudentController {
     private TableColumn<Mark, String> markTeacherCol;
     @FXML
     private Label chosenSubjectLabel;
+    @FXML
+    private Button marksButton;
     @FXML
     private TableView<Remark> remarkTable;
     @FXML
@@ -83,6 +84,18 @@ public class StudentController {
                 markView.setObjectsInTable(markTable, new FilteredList<>(FXCollections.observableList(marks)));
             });
         }
+    }
+
+    @FXML
+    private void generatePdfWithMarks(){
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
+            try {
+                markService.generateDocumentWithMarks(appContext.getSelectedStudent());
+            }catch (Exception e){
+                System.err.println(e.getMessage());
+            }
+        });
+        backgroundTask.execute();
     }
 
     public void initialize() {

@@ -2,9 +2,7 @@ package com.app.controller.admin;
 
 import com.app.controller.CrudController;
 import com.app.entity.Teacher;
-import com.app.repository.impl.TeacherRepository;
 import com.app.service.impl.TeacherService;
-import com.app.validator.impl.TeacherValidator;
 import com.app.view.TeacherView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -41,9 +39,7 @@ public class TeacherController extends CrudController<Teacher> implements Initia
     private TableView<Teacher> teachersTable;
 
     private TeacherView teacherView = new TeacherView();
-    private TeacherValidator teacherValidator = new TeacherValidator();
-    private TeacherRepository teacherRepository = new TeacherRepository();
-    private TeacherService teacherService = new TeacherService(teacherValidator, teacherRepository);
+    private TeacherService teacherService = new TeacherService();
     private ObservableList<Teacher> allTeachers;
 
     @Override
