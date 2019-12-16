@@ -1,5 +1,6 @@
 package com.app.service.impl;
 
+import com.app.entity.Lesson;
 import com.app.entity.Student;
 import com.app.entity.StudentGroup;
 import com.app.repository.impl.StudentRepository;
@@ -53,5 +54,10 @@ public class StudentService extends AbstractCrudService<Student> implements Crud
         if(!students.isEmpty())
             return students;
         else return Collections.emptyList();
+    }
+
+    public List<Student> findByLesson(Lesson selectedLesson) {
+        StudentGroup studentGroup = selectedLesson.getGroup();
+        return findByGroup(studentGroup);
     }
 }

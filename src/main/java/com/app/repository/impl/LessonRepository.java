@@ -117,4 +117,33 @@ public class LessonRepository extends AbstractGenericRepository<Lesson, Long> im
         }
         return lessons;
     }
+
+    public List<Lesson> findByTeacherAndDate(LocalDate actualDate, Teacher loggedTeacher) {
+        List<Lesson> foundLessons;
+        try {
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+            entityTransaction.begin();
+
+            foundLessons = entityManager
+                    .createQuery("SELECT l from Lesson l WHERE l.teacher.id = :id " +
+                            "AND l.date = :date", Lesson.class)
+                    .setParameter("id", loggedTeacher.getId())
+                    .setParameter("date", actualDate)
+                    .getResultList();
+
+            entityTransaction.commit();
+        }catch (Exception e){
+
+            if(entityTransaction != null)
+                entityTransaction.rollback();
+
+            return Collections.emptyList();
+
+        } finally {
+            if (entityManager != null)
+                entityManager.close();
+        }
+        return foundLessons;
+    }
 }

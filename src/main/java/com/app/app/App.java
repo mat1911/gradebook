@@ -20,7 +20,11 @@ public class App extends Application {
         viewManager.showView(WindowViewType.LOGIN_VIEW);
         viewManager.showStage();
 
-        BackgroundTask backgroundTask = new BackgroundTask(DbConnection::load);
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
+            //DBTest.populateDB();
+            DbConnection.load();
+        });
         backgroundTask.execute();
+
     }
 }

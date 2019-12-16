@@ -60,9 +60,9 @@
                               <PropertyValueFactory property="id" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="100.0" text="Opis">
+                        <TableColumn prefWidth="100.0" text="Ocena">
                            <cellValueFactory>
-                              <PropertyValueFactory property="description" />
+                              <PropertyValueFactory property="mark" />
                            </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="markTeacherCol" prefWidth="100.0" text="Nauczyciel">

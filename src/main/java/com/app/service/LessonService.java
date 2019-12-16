@@ -69,4 +69,8 @@ public class LessonService {
                         && !lesson.getGroup().getId().equals(lessonToAdd.getGroup().getId()));
 
     }
+
+    public List<Lesson> findByTeacherAndDate(Teacher loggedTeacher, LocalDate actualDate) {
+        return lessonRepository.findByTeacherAndDate(actualDate, loggedTeacher);
+    }
 }

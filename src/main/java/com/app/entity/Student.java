@@ -3,8 +3,7 @@ package com.app.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data
@@ -24,10 +23,10 @@ public class Student {
     @JoinColumn(name = "group_id")
     private StudentGroup group;
 
-/*    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Attendance> attendances = new HashSet<>();*/
+    private Set<Attendance> attendances = new HashSet<>();
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     @ToString.Exclude

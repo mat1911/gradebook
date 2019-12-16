@@ -1,8 +1,6 @@
 package com.app.utility;
 
 import com.app.entity.Admin;
-import com.app.entity.Student;
-import com.app.entity.StudentGroup;
 import com.app.entity.Teacher;
 import com.app.repository.impl.AdminRepository;
 import com.app.repository.impl.StudentGroupRepository;
@@ -31,7 +29,7 @@ public class DBTest {
                         .build();
         teacherRepository.add(teacher);
 
-        StudentGroup studentGroup = StudentGroup.builder()
+        /*StudentGroup studentGroup = StudentGroup.builder()
                                     .name("I7B4S1")
                                     .build();
         studentGroupRepository.add(studentGroup);
@@ -51,7 +49,7 @@ public class DBTest {
                 .surname("Pakolens")
                 .group(studentGroup)
                 .build();
-        studentRepository.add(student);
+        studentRepository.add(student);*/
 
     }
 }

@@ -44,7 +44,8 @@ public class Lesson {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-/*    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "attendance_id")
-    private Attendance attendance;*/
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Attendance> attendance = new HashSet<>();
 }

@@ -24,9 +24,10 @@ public class Attendance {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "student_id")
-    private Student students;
+    private Student student;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
+
 }
