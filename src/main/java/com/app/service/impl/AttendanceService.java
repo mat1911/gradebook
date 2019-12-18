@@ -11,10 +11,11 @@ public class AttendanceService {
     private AttendanceRepository attendanceRepository = new AttendanceRepository();
 
     public void setPresence(Student student, Lesson selectedLesson, Boolean new_val) {
-        Optional<Attendance> att = attendanceRepository.findAll().stream()
-                .filter(at -> at.getLesson().getId().equals(selectedLesson.getId()) && at.getStudent().getId().equals(student.getId()))
-                .findFirst();
-        att.ifPresentOrElse(attendance -> {
+        attendanceRepository.findAll().stream()
+                .filter(at -> at.getLesson().getId().equals(selectedLesson.getId()))
+                .filter(at -> at.getStudent().getId().equals(student.getId()))
+                .findFirst()
+                .ifPresentOrElse(attendance -> {
             attendance.setPresence(new_val);
             attendanceRepository.update(attendance);
         }, () -> {

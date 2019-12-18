@@ -14,4 +14,16 @@ public class RemarkService {
         List<Remark> remarks = remarkRepository.findByStudent(selectedStudent);
         return remarks.isEmpty() ? Collections.emptyList() : remarks;
     }
+
+    public void delete(Remark mark) {
+        remarkRepository.delete(mark.getId());
+    }
+
+    public void add(Remark mark) {
+        remarkRepository.add(mark);
+    }
+
+    public void update(Remark mark) {
+        remarkRepository.update(mark);
+    }
 }

@@ -20,7 +20,7 @@ public class Test {
     private Long id;
     private String description;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "lesson_id")
     private Lesson lesson;
 }

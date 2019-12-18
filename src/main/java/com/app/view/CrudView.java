@@ -26,9 +26,9 @@ public interface CrudView<T> {
 
     default void setObjectsInTable(TableView<T> objectsTable, FilteredList<T> filteredObjects) {
 
-        objectsTable.getItems().clear();
-        objectsTable.getItems().addAll(filteredObjects);
-        objectsTable.refresh();
+            objectsTable.getItems().clear();
+            objectsTable.getItems().addAll(filteredObjects);
+            objectsTable.refresh();
     }
 
     default void editObjectInTable(TableView<T> objectsTable, T editedObject) {

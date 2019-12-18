@@ -24,9 +24,9 @@ public class Remark {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    /*@ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
+    private Lesson lesson;*/
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "teacher_id")

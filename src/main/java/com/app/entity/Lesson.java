@@ -22,19 +22,19 @@ public class Lesson {
     private LocalDate date;
     private Long lessonNumber;
 
-    @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "lesson", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<com.app.entity.Test> tests = new HashSet<>();
+    private Test test;
 
-    @OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
+    /*@OneToMany(mappedBy = "lesson", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<com.app.entity.Remark> remark = new HashSet<>();
+    private Set<Remark> remark = new HashSet<>();*/
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "group_id")
-    private com.app.entity.StudentGroup group;
+    private StudentGroup group;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "subject_id")

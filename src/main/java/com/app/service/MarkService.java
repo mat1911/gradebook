@@ -73,4 +73,16 @@ public class MarkService {
         return marks;
     }
 
+    public void delete(Mark mark) {
+        markRepository.delete(mark.getId());
+    }
+
+    public void add(Mark mark) {
+        markRepository.add(mark);
+    }
+
+    public void update(Mark mark) {
+        markRepository.update(mark);
+    }
+
 }

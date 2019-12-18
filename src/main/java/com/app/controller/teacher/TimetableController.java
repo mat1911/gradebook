@@ -4,7 +4,9 @@ import com.app.app.AppContext;
 import com.app.entity.Lesson;
 import com.app.entity.Student;
 import com.app.entity.Teacher;
+import com.app.entity.Test;
 import com.app.service.LessonService;
+import com.app.service.TestService;
 import com.app.service.impl.AttendanceService;
 import com.app.service.impl.StudentService;
 import com.app.utility.BackgroundTask;
@@ -29,7 +31,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class TimetableController {
-
     private AppContext appContext = AppContext.getInstance();
 
     private TimetableView timetableView = new TimetableView();
@@ -38,6 +39,8 @@ public class TimetableController {
 
     private StudentView studentView = new StudentView();
     private StudentService studentService = new StudentService();
+
+    private TestService testService = new TestService();
 
     private AttendanceService attendanceService = new AttendanceService();
 
@@ -60,6 +63,10 @@ public class TimetableController {
     private TableColumn<Student, CheckBox> presenceCol;
     @FXML
     private TableColumn<Student, String> studentCol;
+    @FXML
+    private Label testLabel;
+    @FXML
+    private TextField testField;
 
 
     @FXML
@@ -71,6 +78,7 @@ public class TimetableController {
             List<Student> students = studentService.findByLesson(selectedLesson);
 
             Platform.runLater(() -> {
+                testLabel.setText(selectedLesson.getTest() == null ? "Brak" : selectedLesson.getTest().getDescription());
                 studentView.setObjectsInTable(studentTable, new FilteredList<>(FXCollections.observableList(students)));
             });
         }
@@ -122,6 +130,7 @@ public class TimetableController {
                         student.getValue().getName() + " " + student.getValue().getSurname())
         );
 
+
         presenceCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Student, CheckBox>, ObservableValue<CheckBox>>() {
             @Override
             public ObservableValue<CheckBox> call(
@@ -146,5 +155,30 @@ public class TimetableController {
             timetableView.setLabelText(dateLabel, actualDate.toString());
             timetableView.setObjectsInTable(lessonTable, new FilteredList<>(lessonsForTheDay));
         });
+    }
+
+    @FXML
+    private void addTest(ActionEvent actionEvent) {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
+            Test test = Test.builder()
+                    .description(testField.getText())
+                    .lesson(selectedLesson)
+                    .build();
+            selectedLesson.setTest(test);
+            testService.addOrUpdate(test);
+            Platform.runLater(() -> testLabel.setText(testField.getText()));
+        });
+        backgroundTask.execute();
+    }
+
+    @FXML
+    private void removeTest(ActionEvent actionEvent) {
+        BackgroundTask backgroundTask = new BackgroundTask(() -> {
+            testService.delete(selectedLesson.getTest());
+            selectedLesson.setTest(null);
+            lessonService.changeLesson(selectedLesson);
+            Platform.runLater(() -> testLabel.setText("Brak"));
+        });
+        backgroundTask.execute();
     }
 }
