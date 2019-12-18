@@ -168,17 +168,28 @@ public abstract class AbstractCrudService<T> implements CrudService<T> {
         Field[] decFields = serviceType.getDeclaredFields();
 
         return Arrays.stream(decFields)
-                .anyMatch(field -> {
-                    field.setAccessible(true);
+                .anyMatch(field -> fieldIsNotPassword(field)
+                        && fieldContainsFilterInput(field, filterInput, t)
+                        && isFieldTypeForFiltering(field));
+    }
 
-                    try {
-                        return field.get(t).toString().toLowerCase().contains(filterInput.toLowerCase());
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
+    private boolean fieldContainsFilterInput(Field field, String filterInput, T t){
+        try {
+            field.setAccessible(true);
+            return field.get(t).toString().toLowerCase().contains(filterInput.toLowerCase());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
-                    return false;
-                });
+    private boolean fieldIsNotPassword(Field field){
+        return !field.getName().toLowerCase().contains("password");
+    }
+
+    private boolean isFieldTypeForFiltering(Field field){
+        List<String> types = List.of("String", "Long", "Double", "Integer");
+        return types.contains(field.getType().getSimpleName()) || field.getType().isPrimitive();
     }
 }
 
